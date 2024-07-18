@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./basket.css"
-import {BasicModal} from '../'; // Убедитесь, что путь к модалке правильный
-
+import { BasicModal } from '../'; // Убедитесь, что путь к модалке правильный
+import DeleteIcon from '@mui/icons-material/Delete';
 const Basket = () => {
   const [basketItems, setBasketItems] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -33,6 +33,16 @@ const Basket = () => {
     }));
   }
 
+  const onDelete = (id) => {
+    const updatedBasket = basketItems.filter(item => item.id !== id);
+    setBasketItems(updatedBasket);
+    localStorage.setItem('basket', JSON.stringify(updatedBasket));
+
+    const updatedQuantities = { ...quantities };
+    delete updatedQuantities[id];
+    setQuantities(updatedQuantities);
+  }
+
   const totalPrice = () => {
     return basketItems.reduce((total, item) => {
       return total + item.price * (quantities[item.id] || 1);
@@ -62,6 +72,7 @@ const Basket = () => {
                 <button onClick={() => onPlus(item.id)}>+</button>
                 <p>{quantities[item.id]}</p>
                 <button onClick={() => onMinus(item.id)}>-</button>
+                <DeleteIcon onClick={() => onDelete(item.id)} style={{ color:"#B04348",cursor:'pointer'}}/>
               </div>
               <div className="basket__payment-click">
                 <button onClick={handlePaymentClick}>Оплата</button>

@@ -4,27 +4,32 @@
      align-items: center;
      justify-content: center;
      flex-direction: column;
+     gap: 1px;
 }
 .basket__item {
      width: 100%;
+     height: 130px;
      display: flex;
      align-items: center;
      justify-content: space-between;
-     background-color: white;
      padding: 2% 4%;
+     gap: 11px;
+     background-color: rgb(255, 255, 255);
 }
 .basket__item > img {
      width: 100px;
+     max-width: 70px;
 }
 .basket__info {
      display: flex;
-     align-items: start;
-     text-align: center;
+     align-items: end;
+     text-align: end;
+     justify-content: end;
      flex-direction: column;
      gap: 7px;
 }
 .basket__info > p {
-     color: crimson;
+     color: rgb(178, 1, 36);
           font-weight: 600;
 }
 .basket__info>span {
@@ -42,7 +47,6 @@
      display: flex;
      align-items: center;
      justify-content:center;
-     gap: 11px;
 }
 .basket__plus-minus > button {
      width: 23px;
@@ -52,9 +56,16 @@
      justify-content: center;
      border-radius: 50%;
      border: none;
-     background-color: #B04348;
+     background-color: #D07A01;
      color: white;
      font-size: 22px;
+     transition: .2s ease;
+}
+.basket__plus-minus>button:hover {
+          background-color: #af6906;
+}
+.basket__plus-minus>button:active {
+     background-color: #874f02;
 }
 .basket__payment-click >button{
    height: 33px;
@@ -65,4 +76,11 @@ border-radius: 8px;
 cursor: pointer;
 border: none;
 font-size: 13px;
+     transition: .2s ease;
+}
+.basket__payment-click>button:hover  {
+     background-color: #284111;
+}
+.basket__payment-click>button:active {
+     background-color: #1f300f;
 }

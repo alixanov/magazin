@@ -1,0 +1,15 @@
+/* Добавьте этот CSS в ваш файл basket.css или создайте новый файл css */
+.toastify-container .Toastify__toast {
+     width: 390px;
+     /* font-size: 1.2rem; */
+     /* Увеличьте размер шрифта */
+     /* Увеличьте отступы */
+     /* max-width: 390px; */
+     /* Измените максимальную ширину */
+     font-size: 15px;
+}
+
+.toastify-container .Toastify__toast--success {
+     /* background-color: #ff8b8b; */
+     /* Измените цвет фона для успеха */
+}
