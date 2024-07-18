@@ -1,0 +1,28 @@
+.katalog {
+     width: 100%;
+     display: flex;
+     align-items: start;
+     justify-content: start;
+     flex-direction: column;
+     padding: 2% 5%;
+     gap: 11px;
+}
+.katalog__container {
+     width: 100%;
+     display: flex;
+     align-items:start;
+     justify-content: center;
+     flex-direction: column;
+     gap: 5px;
+}
+.katalog__list {
+     display: flex;
+     align-items: center ;
+     justify-content:center;
+     gap: 8px;
+}
+.katalog__list > a{
+     color: #222222;
+     font-size: 18px;
+
+}

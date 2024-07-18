@@ -1,0 +1,23 @@
+.input {
+     width: 340px;
+     height: 41px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     border-radius: 8px;
+     padding: 2%;
+     margin: 3% 0 0 0;
+     background-color: white;
+
+}
+
+.input > input {
+     width: 250px;
+     height: 30px;
+     border: none;
+     outline: none;
+     font-size: 22px;
+     background: none;
+     color: #222222;
+
+}
