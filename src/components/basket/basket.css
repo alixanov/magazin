@@ -1,0 +1,67 @@
+.basket {
+     width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+.basket__item {
+     width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     background-color: white;
+     padding: 2% 4%;
+}
+.basket__item > img {
+     width: 100px;
+}
+.basket__info {
+     display: flex;
+     align-items: start;
+     text-align: center;
+     flex-direction: column;
+     gap: 7px;
+}
+.basket__info > p {
+     color: crimson;
+          font-weight: 600;
+}
+.basket__info>span {
+     color: #335515;
+     font-weight: 700;
+}
+.basket__payment {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     gap: 7px;
+}
+.basket__plus-minus {
+     display: flex;
+     align-items: center;
+     justify-content:center;
+     gap: 11px;
+}
+.basket__plus-minus > button {
+     width: 23px;
+     height: 23px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     border-radius: 50%;
+     border: none;
+     background-color: #B04348;
+     color: white;
+     font-size: 22px;
+}
+.basket__payment-click >button{
+   height: 33px;
+   background-color: #335515;
+   color: white;
+padding: 4px 20px; 
+border-radius: 8px;
+cursor: pointer;
+border: none;
+font-size: 13px;
+}
