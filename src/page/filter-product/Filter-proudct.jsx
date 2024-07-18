@@ -3,7 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { GeneralData } from '../../static';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./filter-product.css"
+import "./filter-product.css";
+
 const useQuery = () => {
      return new URLSearchParams(useLocation().search);
 }
@@ -25,7 +26,17 @@ const FilteredProduct = () => {
 
      const addToBasket = (item) => {
           const basket = getBasket();
-          basket.push(item);
+          const existingItem = basket.find(basketItem => basketItem.id === item.id);
+
+          if (existingItem) {
+               // Увеличиваем количество, если товар уже в корзине
+               existingItem.count += 1;
+          } else {
+               // Добавляем новый товар с количеством 1
+               item.count = 1;
+               basket.push(item);
+          }
+
           setBasket(basket);
           notify();
      }

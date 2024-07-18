@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import "./basket.css"
-import { BasicModal } from '../'; // Убедитесь, что путь к модалке правильный
+import "./basket.css";
+import {BasicModal} from '../'; // Ensure the import path is correct
 import DeleteIcon from '@mui/icons-material/Delete';
+
 const Basket = () => {
   const [basketItems, setBasketItems] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -65,14 +66,15 @@ const Basket = () => {
             <img src={item.img[0]} alt={item.nameproduct} />
             <div className="basket__info">
               <p>{item.nameproduct}</p>
-              <span> {totalPrice()}som</span>
+              <span>{item.price * quantities[item.id]} som</span>
             </div>
             <div className="basket__payment">
               <div className="basket__plus-minus">
-                <button onClick={() => onPlus(item.id)}>+</button>
-                <p>{quantities[item.id]}</p>
                 <button onClick={() => onMinus(item.id)}>-</button>
-                <DeleteIcon onClick={() => onDelete(item.id)} style={{ color:"#B04348",cursor:'pointer'}}/>
+
+                  <p>{quantities[item.id]}</p>
+                <button onClick={() => onPlus(item.id)}>+</button>
+                <DeleteIcon onClick={() => onDelete(item.id)} style={{ color: "#B04348", cursor: 'pointer' }} />
               </div>
               <div className="basket__payment-click">
                 <button onClick={handlePaymentClick}>Оплата</button>
@@ -83,7 +85,13 @@ const Basket = () => {
       ) : (
         <p>Корзина пуста</p>
       )}
-      {isModalOpen && <BasicModal isOpen={isModalOpen} onClose={handleModalClose} />}
+      {isModalOpen && (
+        <BasicModal
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+          totalPrice={totalPrice()}
+        />
+      )}
     </div>
   );
 }

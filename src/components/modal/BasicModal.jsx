@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import {CustomSelect} from '../'; // Ensure the import path is correct
+import "./basic-modal.css";
 
 const style = {
      position: 'absolute',
@@ -15,7 +16,9 @@ const style = {
      p: 4,
 };
 
-export default function BasicModal({ isOpen, onClose }) {
+export default function BasicModal({ isOpen, onClose, totalPrice }) {
+     const paymentOptions = ['UzCard', 'Humo', 'Visa'];
+
      return (
           <Modal
                open={isOpen}
@@ -24,12 +27,19 @@ export default function BasicModal({ isOpen, onClose }) {
                aria-describedby="modal-modal-description"
           >
                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                         Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
+                    <div className="payment__container">
+                         <div className='payment__select'>
+                              <h1>Общая сумма к оплате: {totalPrice} сом</h1>
+                              <CustomSelect options={paymentOptions} />
+                         </div>
+                    </div>
+                    <div className="payment__inp-number">
+                         <input type="text" name="" id="" placeholder='Введите номер карты' />
+                         <input type="text" name="" id="" placeholder='ММ/ГГ' />
+                    </div>
+                    <div className="payment__send">
+                         <button>Оплатить</button>
+                    </div>
                </Box>
           </Modal>
      );
