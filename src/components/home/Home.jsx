@@ -9,7 +9,7 @@ const Home = () => {
           <div className='home'>
                <div className="home__title">
                     <h2>
-                         new shop
+                         magazin
                     </h2>
                </div>
                <Input />
