@@ -22,17 +22,17 @@ const FilteredProduct = () => {
      const query = useQuery();
      const productName = query.get('name');
 
-     const filteredItems = GeneralData.filter(item => item.mahsulotnomi === productName);
+     const filteredItems = productName
+          ? GeneralData.filter(item => item.mahsulotnomi === productName)
+          : GeneralData;
 
      const addToBasket = (item) => {
           const basket = getBasket();
           const existingItem = basket.find(basketItem => basketItem.id === item.id);
 
           if (existingItem) {
-               // Увеличиваем количество, если товар уже в корзине
                existingItem.count += 1;
           } else {
-               // Добавляем новый товар с количеством 1
                item.count = 1;
                basket.push(item);
           }
@@ -53,34 +53,48 @@ const FilteredProduct = () => {
                theme: "light",
           });
 
+     const groupedItems = filteredItems.reduce((acc, item) => {
+          const group = acc[item.titleProduct] || [];
+          group.push(item);
+          acc[item.titleProduct] = group;
+          return acc;
+     }, {});
+
      return (
-          <div className='product'>
-               {filteredItems.map((item, index) => (
-                    <div className="product__card" key={index}>
-                         <img src={item.img[0]} alt="" />
-                         <div className="product__info">
-                              <p>{item.nameproduct}</p>
-                              <span>{item.nechtaqolgani} dona qoldi</span>
+          <div className='product-container'>
+               {Object.keys(groupedItems).map((groupTitle, idx) => (
+                    <div className='product-group' key={idx}>
+                         <div className="product__title">
+                              <h3>{groupTitle}</h3>
                          </div>
-                         <div className="product__buy">
-                              <ToastContainer
-                                   className="toastify-container"
-                                   position="top-right"
-                                   autoClose={5000}
-                                   hideProgressBar={false}
-                                   newestOnTop={false}
-                                   closeOnClick
-                                   rtl={false}
-                                   pauseOnFocusLoss
-                                   draggable
-                                   pauseOnHover
-                                   theme="light"
-                              />
-                              <p>{item.price} som</p>
-                              <button onClick={() => addToBasket(item)}>
-                                   Sotib olish
-                              </button>
-                         </div>
+                         {groupedItems[groupTitle].map((item, index) => (
+                              <div className="product__card" key={index}>
+                                   <img src={item.img[0]} alt={item.nameproduct} />
+                                   <div className="product__info">
+                                        <p>{item.nameproduct}</p>
+                                        <span>{item.nechtaqolgani} <p>dona qoldi</p></span>
+                                        <h3>{item.price} som</h3>
+                                   </div>
+                                   <div className="product__buy">
+                                        <ToastContainer
+                                             className="toastify-container"
+                                             position="top-right"
+                                             autoClose={5000}
+                                             hideProgressBar={false}
+                                             newestOnTop={false}
+                                             closeOnClick
+                                             rtl={false}
+                                             pauseOnFocusLoss
+                                             draggable
+                                             pauseOnHover
+                                             theme="light"
+                                        />
+                                        <button onClick={() => addToBasket(item)}>
+                                             Sotib olish
+                                        </button>
+                                   </div>
+                              </div>
+                         ))}
                     </div>
                ))}
           </div>

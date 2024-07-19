@@ -1,86 +1,131 @@
 .basket {
      width: 100%;
+     max-width: 800px;
+     margin: 0 auto;
+     padding: 20px;
      display: flex;
-     align-items: center;
-     justify-content: center;
      flex-direction: column;
-     gap: 1px;
+     align-items: center;
+     gap: 20px;
+     background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 .basket__item {
      width: 100%;
-     height: 130px;
      display: flex;
      align-items: center;
-     justify-content: space-between;
-     padding: 2% 4%;
-     gap: 11px;
-     background-color: rgb(255, 255, 255);
+     gap: 20px;
+     padding: 15px;
+     background-color: #fff;
+     border-radius: 10px;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.basket__item > img {
+
+.basket__item:hover {
+     transform: translateY(-5px);
+     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.basket__image {
      width: 100px;
      max-width: 70px;
+     border-radius: 10px;
 }
+
+.basket__details {
+     flex: 1;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+}
+
 .basket__info {
      display: flex;
-     align-items: end;
-     text-align: end;
-     justify-content: end;
      flex-direction: column;
-     gap: 7px;
+     align-items: flex-start;
 }
-.basket__info > p {
-     color: rgb(178, 1, 36);
-          font-weight: 600;
+
+.basket__info>p {
+     color: #b20124;
+     font-weight: 600;
+     font-size: 16px;
 }
+
 .basket__info>span {
      color: #335515;
      font-weight: 700;
+     font-size: 18px;
 }
-.basket__payment {
+
+.basket__controls {
      display: flex;
      align-items: center;
-     justify-content: center;
-     flex-direction: column;
-     gap: 7px;
+     gap: 10px;
 }
-.basket__plus-minus {
-     display: flex;
-     align-items: center;
-     justify-content:center;
-}
-.basket__plus-minus > button {
-     width: 23px;
-     height: 23px;
+
+.basket__controls>button {
+     width: 30px;
+     height: 30px;
      display: flex;
      align-items: center;
      justify-content: center;
      border-radius: 50%;
      border: none;
-     background-color: #D07A01;
+     background-color: #d07a01;
      color: white;
      font-size: 22px;
-     transition: .2s ease;
+     transition: background-color 0.2s ease, transform 0.2s ease;
 }
-.basket__plus-minus>button:hover {
-          background-color: #af6906;
+
+.basket__controls>button:hover {
+     background-color: #af6906;
+     transform: scale(1.1);
 }
-.basket__plus-minus>button:active {
+
+.basket__controls>button:active {
      background-color: #874f02;
 }
-.basket__payment-click >button{
-   height: 33px;
-   background-color: #335515;
-   color: white;
-padding: 4px 20px; 
-border-radius: 8px;
-cursor: pointer;
-border: none;
-font-size: 13px;
-     transition: .2s ease;
+
+.basket__summary {
+     width: 100%;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 10px;
+     background-color: #fff;
+     border-radius: 10px;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
-.basket__payment-click>button:hover  {
+
+.basket__payment-button {
+     height: 40px;
+     background-color: #335515;
+     color: white;
+     padding: 8px 20px;
+     border-radius: 8px;
+     cursor: pointer;
+     border: none;
+     font-size: 14px;
+     transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.basket__payment-button:hover {
      background-color: #284111;
+     transform: scale(1.05);
 }
-.basket__payment-click>button:active {
+
+.basket__payment-button:active {
      background-color: #1f300f;
+}
+
+.delete-icon {
+     color: #b04348;
+     cursor: pointer;
+     transition: transform 0.2s ease;
+}
+
+.delete-icon:hover {
+     transform: scale(1.1);
 }

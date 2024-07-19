@@ -7,6 +7,8 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Link } from "react-router-dom";
 import { GeneralData } from "../../static";
+import "./swiper.css";
+
 
 const CircleSwiper = () => {
      // Используем Set для хранения уникальных значений
@@ -27,8 +29,9 @@ const CircleSwiper = () => {
                     slidesPerView={4}
                     spaceBetween={10}
                     loop={true}
-                    className="mySwiper"
+                    className="mySwiper circleSwiper"
                     effect="coverflow"
+                    
                >
                     {uniqueItems.map((item, index) => (
                          <SwiperSlide key={index} className="swipermini__box">

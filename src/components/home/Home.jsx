@@ -1,5 +1,5 @@
 import React from 'react';
-import { AdverstingSwiper, CircleSwiper} from "../../page";
+import { AdverstingSwiper, CircleSwiper, FilteredProduct } from "../../page";
 import { Input } from "../../constants";
 
 import "./home.css";
@@ -15,6 +15,9 @@ const Home = () => {
                <Input />
                <AdverstingSwiper />
                <CircleSwiper />
+               < FilteredProduct/>
+          
+               
           </div>
      );
 }

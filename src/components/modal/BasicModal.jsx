@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import {CustomSelect} from '../'; // Ensure the import path is correct
+import { CustomSelect } from '../'; // Убедитесь, что путь к импорту правильный
 import "./basic-modal.css";
 
 const style = {
@@ -18,6 +18,37 @@ const style = {
 
 export default function BasicModal({ isOpen, onClose, totalPrice }) {
      const paymentOptions = ['UzCard', 'Humo', 'Visa'];
+     const [cardNumber, setCardNumber] = React.useState('');
+     const [expiryDate, setExpiryDate] = React.useState('');
+     const [isPaymentValid, setIsPaymentValid] = React.useState(false);
+
+     const formatCardNumber = (value) => {
+          return value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
+     };
+
+     const handleCardNumberChange = (e) => {
+          const value = e.target.value.replace(/\s?/g, '');
+          if (value.length <= 16) {
+               const formattedValue = formatCardNumber(value);
+               setCardNumber(formattedValue);
+               validatePayment(formattedValue, expiryDate);
+          }
+     };
+
+     const handleExpiryDateChange = (e) => {
+          const value = e.target.value.replace(/\D/g, '');
+          if (value.length <= 4) {
+               const formattedValue = value.replace(/(\d{2})(\d{2})/, '$1/$2');
+               setExpiryDate(formattedValue);
+               validatePayment(cardNumber, formattedValue);
+          }
+     };
+
+     const validatePayment = (cardNumber, expiryDate) => {
+          const cardNumberValid = cardNumber.replace(/\s/g, '').length === 16;
+          const expiryDateValid = /^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate);
+          setIsPaymentValid(cardNumberValid && expiryDateValid);
+     };
 
      return (
           <Modal
@@ -28,17 +59,29 @@ export default function BasicModal({ isOpen, onClose, totalPrice }) {
           >
                <Box sx={style}>
                     <div className="payment__container">
-                         <div className='payment__select'>
+                         <div className="payment__select">
                               <h1>Общая сумма к оплате: {totalPrice} сом</h1>
                               <CustomSelect options={paymentOptions} />
                          </div>
-                    </div>
-                    <div className="payment__inp-number">
-                         <input type="text" name="" id="" placeholder='Введите номер карты' />
-                         <input type="text" name="" id="" placeholder='ММ/ГГ' />
-                    </div>
-                    <div className="payment__send">
-                         <button>Оплатить</button>
+                         <div className="payment__inp-number">
+                              <input
+                                   type="text"
+                                   placeholder='Введите номер карты'
+                                   value={cardNumber}
+                                   onChange={handleCardNumberChange}
+                              />
+                              <input
+                                   type="text"
+                                   placeholder='ММ/ГГ'
+                                   value={expiryDate}
+                                   onChange={handleExpiryDateChange}
+                              />
+                         </div>
+                         <div className="payment__send">
+                              <button className={isPaymentValid ? 'valid' : ''} disabled={!isPaymentValid}>
+                                   Оплатить
+                              </button>
+                         </div>
                     </div>
                </Box>
           </Modal>

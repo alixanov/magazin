@@ -3,22 +3,9 @@ const FullData = [
           id: 1,
           titleProduct: "Macbooklar",
           mahsulotnomi: "Macbook",
-          // umumiynomi: "Elektronika",
-          // taqqoslashuchun: "elektronika",
           umumiyicon: require("../assets/mackbook.png"),
           swiperuchun: require("../assets/mackbook.png"),
-          namelist: [
-               "Mackbook",
-               "Noutbooklar",
-               "Planshetlar",
-               "Telefonlar",
-               "iPhonelar",
-               "Soatlar",
-               "iWatchla",
-               "Monitorlarlar",
-               "iMaclar",
-               "Televizorlar",
-          ],
+
           img: [
                "https://static.re-store.ru/upload/resize_cache/iblock/e7f/100500_800_140cd750bba9870f18aada2478b24840a/gllfdwcxt3b51odg02t1t5robs712837.jpg",
                "https://static.re-store.ru/upload/resize_cache/iblock/597/100500_800_140cd750bba9870f18aada2478b24840a/1kppnkk4c69978vr2hll08oa7s3bxtwd.jpg",
@@ -35,22 +22,10 @@ const FullData = [
           id: 2,
           titleProduct: "Macbooklar",
           mahsulotnomi: "Macbook",
-          // umumiynomi: "Elektronika",
-          // taqqoslashuchun: "elektronika",
+
           umumiyicon: require("../assets/mackbook.png"),
           swiperuchun: require("../assets/mackbook.png"),
-          namelist: [
-               "Mackbook",
-               "Noutbooklar",
-               "Planshetlar",
-               "Telefonlar",
-               "iPhonelar",
-               "Soatlar",
-               "iWatchla",
-               "Monitorlarlar",
-               "iMaclar",
-               "Televizorlar",
-          ],
+
           img: [
                "https://static.re-store.ru/upload/iblock/30f/72gm7fiyojgepp0or5j8mscav8lv85j5.jpeg",
                "https://static.re-store.ru/upload/iblock/f5f/typi0jkblgto0cv9qt3p20hmio18y18e.jpeg",
@@ -65,23 +40,11 @@ const FullData = [
           id: 3,
           titleProduct: "Macbooklar",
           mahsulotnomi: "Macbook",
-          // umumiynomi: "Elektronika",
-          // taqqoslashuchun: "elektronika",
+
           umumiyicon: require("../assets/mackbook.png"),
           swiperuchun: require("../assets/mackbook.png"),
-    
-          namelist: [
-               "Mackbook",
-               "Noutbooklar",
-               "Planshetlar",
-               "Telefonlar",
-               "iPhonelar",
-               "Soatlar",
-               "iWatchla",
-               "Monitorlarlar",
-               "iMaclar",
-               "Televizorlar",
-          ],
+
+
           img: [
                "https://static.re-store.ru/upload/resize_cache/iblock/66f/100500_800_140cd750bba9870f18aada2478b24840a/dsir7jmqrvkd027vqhs4fy7gqlja29z7.jpg",
                "https://static.re-store.ru/upload/resize_cache/iblock/52d/100500_800_140cd750bba9870f18aada2478b24840a/u6gny41d9rzk6tas1hb1oqlz5txucn6r.jpg",
@@ -99,22 +62,10 @@ const FullData = [
           id: 6,
           titleProduct: "Macbooklar",
           mahsulotnomi: "Macbook",
-          // umumiynomi: "Elektronika",
-          // taqqoslashuchun: "elektronika",
+
           swiperuchun: require("../assets/mackbook.png"),
           umumiyicon: require("../assets/mackbook.png"),
-          namelist: [
-               "Mackbook",
-               "Noutbooklar",
-               "Planshetlar",
-               "Telefonlar",
-               "iPhonelar",
-               "Soatlar",
-               "iWatchla",
-               "Monitorlarlar",
-               "iMaclar",
-               "Televizorlar",
-          ],
+
           img: [
                "https://static.re-store.ru/upload/resize_cache/iblock/46e/100500_800_140cd750bba9870f18aada2478b24840a/46efe1c754d61d31afb689bbd8f8354c.jpg",
                "https://static.re-store.ru/upload/resize_cache/iblock/e49/100500_800_140cd750bba9870f18aada2478b24840a/e4959a908cd99a14fe1bc34c380c5e85.jpg",
@@ -127,25 +78,15 @@ const FullData = [
      },
 
 
-   
+
      {
           id: 9,
           titleProduct: "Aksesuarlar",
           mahsulotnomi: "Ayollar soati",
-          // umumiynomi: "Aksessuarlar",
-          // taqqoslashuchun: "ayollarsoati",
+
           umumiyicon: require("../assets/watch.png"),
           swiperuchun: require("../assets/watch.png"),
-          namelist: [
-               "Ayollar  aksessuarlari",
-               "Ekaklar aksesuarlar",
-               "Qizlar uchun aksessuarlar",
-               "Og'il bolalar uchun aksessuarlar",
-               "Sayohat uchun aksessuarlar",
-               "Diniy aksessuarla",
-               "Tog' chang'i sport aksessuarlari",
-               "Chaqaloqlar  uchun",
-          ],
+
           img: [
                "https://vetervremeni.uz/wp-content/uploads/2021/06/t035.207.26.031.00-tissot.jpg",
                "https://vetervremeni.uz/wp-content/uploads/2021/06/t.035.207.26.031.00-tissot.jpg",
@@ -160,20 +101,10 @@ const FullData = [
           id: 10,
           titleProduct: "Kitoblar",
           mahsulotnomi: "Badiy adabiyot",
-          // umumiynomi: "Kitoblar",
-          // taqqoslashuchun: "badiyadabiyot",
+
           umumiyicon: require("../assets/book.png"),
           swiperuchun: require("../assets/book.png"),
-          namelist: [
-               "Badiy adabiyot",
-               "Biznes adabiyot",
-               "Bolalarga va ota-onalarga",
-               "Bukinistika",
-               "Chet tillaridagi-adabiyotlar",
-               "Diniy kitoblar",
-               "Elektron audio kitoblar",
-               "Chaqaloqlar  uchun",
-          ],
+
           img: [
                "https://assets.asaxiy.uz/product/items/desktop/69f268fb2ba1068615b3219c6e8f57e82022042615260587017FE782Vt8Uy.jpg.webp",
                "https://assets.asaxiy.uz/product/items/desktop/b7ee0d0d4d5ef995aae0fc691e6d840d2022042615273751372APKwbYVRkK.jpg.webp",
@@ -187,21 +118,10 @@ const FullData = [
           id: 11,
           titleProduct: "Avtotovarlar",
           mahsulotnomi: "Avto akumlyator",
-          // umumiynomi: "Avtotovarlar",
-          // taqqoslashuchun: "avtoakumlayotrlar",
+
           umumiyicon: require("../assets/accumlayator.png"),
           swiperuchun: require("../assets/accumlayator.png"),
 
-          namelist: [
-               "Akkumlyatorlar",
-               "Aksessuarlar",
-               "Asboblar va uskunalar",
-               "Avtomobil extiyot qisimlar",
-               "Avtomobil uchun elektornika",
-               "Moylar va kimyoviy moddalar",
-               "Avtotovush",
-               "Shinalar va diskalar",
-          ],
           img: [
                "https://images.prom.ua/2354953491_w640_h640_2354953491.jpg",
                "https://images.prom.ua/1531637591_w640_h640_1531637591.jpg",
@@ -216,18 +136,10 @@ const FullData = [
           id: 12,
           titleProduct: "Maishiy texnika",
           mahsulotnomi: "Konditsioner",
-          // umumiynomi: "Maishiy texnika",
-          // taqqoslashuchun: "iqlimtexnikasi",
+
           umumiyicon: require("../assets/airconditioner.png"),
           swiperuchun: require("../assets/airconditioner.png"),
-          namelist: [
-               "Iqlim texnikasi",
-               "Katta maishiy texnika",
-               "Asboblar va uskunalar",
-               "Oshxona texnikalari",
-               "Avtomobil uchun elektornika",
-               "Uy uchun texnika",
-          ],
+
           img: [
                "https://minio.alifshop.uz/shop/products/B3QbA9cOxbVkuQbblT6nv5c6VcmhSCra16hJOO8n.webp",
                "https://minio.alifshop.uz/shop/products/Njq9MUcM5FKJyODyYmk7eHPbR88eztWYzYkuFncJ.jpg",
@@ -241,18 +153,10 @@ const FullData = [
           id: 13,
           titleProduct: "Hayvonlar uchun tovarlar",
           mahsulotnomi: "Baliq ozuqasi",
-          // umumiynomi: "Hayvonlar uchun tovarlar",
-          // taqqoslashuchun: "baliqozuqasi",
+
           umumiyicon: require("../assets/baliq.png"),
           swiperuchun: require("../assets/baliq.png"),
-          namelist: [
-               "Baliqlar uchun",
-               "Gigiyena ",
-               "Itlar uchun",
-               "Kemiruvchilar uchun",
-               "Qushlar uchun",
-               "Vetapteka",
-          ],
+
           img: ["https://charley.uz/d/160880648_w640_h640_tetra-variety-sticks.webp"],
           nameproduct: "Tetra Pond Variety Sticks",
           price: "2.5",

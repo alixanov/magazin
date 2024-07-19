@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./basket.css";
-import {BasicModal} from '../'; // Ensure the import path is correct
+import { BasicModal } from '../'; // Ensure the import path is correct
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Basket = () => {
@@ -63,21 +63,17 @@ const Basket = () => {
       {basketItems.length > 0 ? (
         basketItems.map((item, index) => (
           <div className="basket__item" key={index}>
-            <img src={item.img[0]} alt={item.nameproduct} />
-            <div className="basket__info">
-              <p>{item.nameproduct}</p>
-              <span>{item.price * quantities[item.id]} som</span>
-            </div>
-            <div className="basket__payment">
-              <div className="basket__plus-minus">
-                <button onClick={() => onMinus(item.id)}>-</button>
-
-                  <p>{quantities[item.id]}</p>
-                <button onClick={() => onPlus(item.id)}>+</button>
-                <DeleteIcon onClick={() => onDelete(item.id)} style={{ color: "#B04348", cursor: 'pointer' }} />
+            <img src={item.img[0]} alt={item.nameproduct} className="basket__image" />
+            <div className="basket__details">
+              <div className="basket__info">
+                <p>{item.nameproduct}</p>
+                <span>{item.price * quantities[item.id]} сом</span>
               </div>
-              <div className="basket__payment-click">
-                <button onClick={handlePaymentClick}>Оплата</button>
+              <div className="basket__controls">
+                <button onClick={() => onMinus(item.id)}>-</button>
+                <p>{quantities[item.id]}</p>
+                <button onClick={() => onPlus(item.id)}>+</button>
+                <DeleteIcon onClick={() => onDelete(item.id)} className="delete-icon" />
               </div>
             </div>
           </div>
@@ -85,6 +81,10 @@ const Basket = () => {
       ) : (
         <p>Корзина пуста</p>
       )}
+      <div className="basket__summary">
+        <p>Итого: {totalPrice()} сом</p>
+        <button onClick={handlePaymentClick} className="basket__payment-button">Оплата</button>
+      </div>
       {isModalOpen && (
         <BasicModal
           isOpen={isModalOpen}
