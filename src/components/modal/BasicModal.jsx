@@ -1,9 +1,11 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { CustomSelect } from '../'; // Убедитесь, что путь к импорту правильный
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./basic-modal.css";
-import axios from 'axios'; // Импортируем axios для отправки запросов на сервер
+import { useEffect } from "react";
 
 const style = {
      position: 'absolute',
@@ -17,11 +19,21 @@ const style = {
      p: 4,
 };
 
+const telegram = window.Telegram.WebApp;
+
+const onCheckout = () => {
+     telegram.MainButton.setParams({ text: "Оплатить" });
+     telegram.MainButton.show();
+};
+
 export default function BasicModal({ isOpen, onClose, totalPrice }) {
-     const paymentOptions = ['UzCard', 'Humo', 'Visa'];
      const [cardNumber, setCardNumber] = React.useState('');
      const [expiryDate, setExpiryDate] = React.useState('');
      const [isPaymentValid, setIsPaymentValid] = React.useState(false);
+
+     useEffect(() => {
+          telegram.ready();
+     }, []);
 
      const formatCardNumber = (value) => {
           return value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
@@ -62,50 +74,53 @@ export default function BasicModal({ isOpen, onClose, totalPrice }) {
                try {
                     const response = await axios.post('http://localhost:3002/payment', paymentData);
                     if (response.status === 200) {
-                         alert('Оплата успешно проведена! Чек отправлен в Telegram.');
+                         toast.success('Оплата успешно проведена! Чек отправлен в Telegram.');
                          onClose();
                     }
                } catch (error) {
                     console.error('Ошибка при оплате:', error);
-                    alert('Ошибка при оплате. Попробуйте снова.');
+                    toast.error('Ошибка при оплате. Попробуйте снова.');
                }
           }
+          onCheckout();
      };
 
      return (
-          <Modal
-               open={isOpen}
-               onClose={onClose}
-               aria-labelledby="modal-modal-title"
-               aria-describedby="modal-modal-description"
-          >
-               <Box sx={style}>
-                    <div className="payment__container">
-                         <div className="payment__select">
-                              <h1>Общая сумма к оплате: <p>{totalPrice}</p> сом</h1>
-                              <CustomSelect options={paymentOptions} />
+          <>
+               <Modal
+                    open={isOpen}
+                    onClose={onClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+               >
+                    <Box sx={style}>
+                         <div className="payment__container">
+                              <div className="payment__select">
+                                   <h1>Общая сумма к оплате: <p>{totalPrice}</p> сом</h1>
+                              </div>
+                              <div className="payment__inp-number">
+                                   <input
+                                        type="text"
+                                        placeholder='Введите номер карты'
+                                        value={cardNumber}
+                                        onChange={handleCardNumberChange}
+                                   />
+                                   <input
+                                        type="text"
+                                        placeholder='ММ/ГГ'
+                                        value={expiryDate}
+                                        onChange={handleExpiryDateChange}
+                                   />
+                              </div>
+                              <div className="payment__send">
+                                   <button className={isPaymentValid ? 'valid' : ''} disabled={!isPaymentValid} onClick={handlePayment}>
+                                        Оплатить
+                                   </button>
+                              </div>
                          </div>
-                         <div className="payment__inp-number">
-                              <input
-                                   type="text"
-                                   placeholder='Введите номер карты'
-                                   value={cardNumber}
-                                   onChange={handleCardNumberChange}
-                              />
-                              <input
-                                   type="text"
-                                   placeholder='ММ/ГГ'
-                                   value={expiryDate}
-                                   onChange={handleExpiryDateChange}
-                              />
-                         </div>
-                         <div className="payment__send">
-                              <button className={isPaymentValid ? 'valid' : ''} disabled={!isPaymentValid} onClick={handlePayment}>
-                                   Оплатить
-                              </button>
-                         </div>
-                    </div>
-               </Box>
-          </Modal>
+                    </Box>
+               </Modal>
+               <ToastContainer />
+          </>
      );
 }
