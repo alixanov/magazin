@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { GeneralData } from '../../static';
+import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./filter-product.css";
+
 
 const useQuery = () => {
      return new URLSearchParams(useLocation().search);
@@ -19,12 +20,21 @@ const setBasket = (basket) => {
 }
 
 const FilteredProduct = () => {
+     const [products, setProducts] = useState([]);
      const query = useQuery();
      const productName = query.get('name');
 
+     useEffect(() => {
+          axios.get('https://669a7ba49ba098ed61ffcfbc.mockapi.io/magazin')
+               .then(response => {
+                    setProducts(response.data);
+               })
+               .catch(error => console.error("Error fetching data: ", error));
+     }, []);
+
      const filteredItems = productName
-          ? GeneralData.filter(item => item.mahsulotnomi === productName)
-          : GeneralData;
+          ? products.filter(item => item.mahsulotnomi === productName)
+          : products;
 
      const addToBasket = (item) => {
           const basket = getBasket();
@@ -59,6 +69,9 @@ const FilteredProduct = () => {
           acc[item.titleProduct] = group;
           return acc;
      }, {});
+
+
+   
 
      return (
           <div className='product-container'>

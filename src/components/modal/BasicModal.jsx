@@ -60,7 +60,7 @@ export default function BasicModal({ isOpen, onClose, totalPrice }) {
                <Box sx={style}>
                     <div className="payment__container">
                          <div className="payment__select">
-                              <h1>Общая сумма к оплате: {totalPrice} сом</h1>
+                              <h1>Общая сумма к оплате: <p>{totalPrice}</p> сом</h1>
                               <CustomSelect options={paymentOptions} />
                          </div>
                          <div className="payment__inp-number">

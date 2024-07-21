@@ -17,7 +17,12 @@
 .payment__select>h1 {
      font-weight: 600;
      font-size: 24px;
-     color: #333;
+     color: #222222;
+}
+.payment__select>h1 > p {
+     font-weight: 600;
+     font-size: 24px;
+     color: #335515;
 }
 
 .payment__inp-number {
@@ -61,7 +66,7 @@
 }
 
 .payment__send>button.valid {
-     background-color: green;
+     background-color: #418100;
 }
 
 .payment__send>button:not(.valid) {

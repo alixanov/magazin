@@ -1,10 +1,7 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { Home, Katalog, Footer, Basket } from "../"
-import {FilteredProduct} from '../../page'
-
-
-
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Home, Katalog, Footer, Basket } from "../";
+import { FilteredProduct } from '../../page';
 
 const Main = () => {
   return (
@@ -13,12 +10,11 @@ const Main = () => {
         <Route path="/" element={<Home />} />
         <Route path='/katalog' element={<Katalog />} />
         <Route path="/product" element={<FilteredProduct />} />
-        <Route path='/savat' element={<Basket/>} />
+        <Route path='/savat' element={<Basket />} />
       </Routes>
       <Footer />
-
     </div>
-  )
+  );
 }
 
-export default Main
+export default Main;

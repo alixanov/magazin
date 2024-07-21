@@ -1,33 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input } from '../../constants';
-import { GeneralData } from '../../static';
 import { Link } from 'react-router-dom';
-import "./katalog.css"
+import axios from 'axios';
+import "./katalog.css";
 
 const Katalog = () => {
-  // Используем Set для хранения уникальных значений
-  const uniqueItems = Array.from(new Set(GeneralData.map(item => item.mahsulotnomi)))
-    .map(nomi => {
-      return GeneralData.find(item => item.mahsulotnomi === nomi);
-    });
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios.get('https://669a7ba49ba098ed61ffcfbc.mockapi.io/magazin')
+      .then(response => {
+        const uniqueItems = Array.from(new Set(response.data.map(item => item.mahsulotnomi)))
+          .map(nomi => {
+            return response.data.find(item => item.mahsulotnomi === nomi);
+          });
+        setProducts(uniqueItems);
+      })
+      .catch(error => console.error("Error fetching data: ", error));
+  }, []);
 
   return (
     <div className='katalog'>
       <Input />
       <div className="katalog__container">
-        {
-          uniqueItems.map((item, index) => (
-            <div className="katalog__list" key={index}>
-              <img src={item.umumiyicon} alt="" width={30} />
-              <Link to={`/product?name=${item.mahsulotnomi}`}>
-                {item.mahsulotnomi}
-              </Link>
-            </div>
-          ))
-        }
+        {products.map((item, index) => (
+          <div className="katalog__list" key={index}>
+            <img src={item.swiperuchun} alt="" width={30} />
+            <Link to={`/product?name=${item.mahsulotnomi}`}>
+              {item.mahsulotnomi}
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
-  )
+  );
 }
 
 export default Katalog;

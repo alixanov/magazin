@@ -1,9 +1,9 @@
 const FullData = [
+     
      {
           id: 1,
           titleProduct: "Macbooklar",
           mahsulotnomi: "Macbook",
-          umumiyicon: require("../assets/mackbook.png"),
           swiperuchun: require("../assets/mackbook.png"),
 
           img: [
@@ -23,7 +23,6 @@ const FullData = [
           titleProduct: "Macbooklar",
           mahsulotnomi: "Macbook",
 
-          umumiyicon: require("../assets/mackbook.png"),
           swiperuchun: require("../assets/mackbook.png"),
 
           img: [
@@ -41,7 +40,6 @@ const FullData = [
           titleProduct: "Macbooklar",
           mahsulotnomi: "Macbook",
 
-          umumiyicon: require("../assets/mackbook.png"),
           swiperuchun: require("../assets/mackbook.png"),
 
 
@@ -84,7 +82,6 @@ const FullData = [
           titleProduct: "Aksesuarlar",
           mahsulotnomi: "Ayollar soati",
 
-          umumiyicon: require("../assets/watch.png"),
           swiperuchun: require("../assets/watch.png"),
 
           img: [
@@ -102,7 +99,6 @@ const FullData = [
           titleProduct: "Kitoblar",
           mahsulotnomi: "Badiy adabiyot",
 
-          umumiyicon: require("../assets/book.png"),
           swiperuchun: require("../assets/book.png"),
 
           img: [
@@ -119,7 +115,6 @@ const FullData = [
           titleProduct: "Avtotovarlar",
           mahsulotnomi: "Avto akumlyator",
 
-          umumiyicon: require("../assets/accumlayator.png"),
           swiperuchun: require("../assets/accumlayator.png"),
 
           img: [
@@ -137,7 +132,6 @@ const FullData = [
           titleProduct: "Maishiy texnika",
           mahsulotnomi: "Konditsioner",
 
-          umumiyicon: require("../assets/airconditioner.png"),
           swiperuchun: require("../assets/airconditioner.png"),
 
           img: [
@@ -154,7 +148,6 @@ const FullData = [
           titleProduct: "Hayvonlar uchun tovarlar",
           mahsulotnomi: "Baliq ozuqasi",
 
-          umumiyicon: require("../assets/baliq.png"),
           swiperuchun: require("../assets/baliq.png"),
 
           img: ["https://charley.uz/d/160880648_w640_h640_tetra-variety-sticks.webp"],

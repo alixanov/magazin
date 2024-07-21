@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import { GeneralData } from '../../static';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import "./input.css";
 
 const Input = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [product, setProduct] = useState(null);
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get('https://669a7ba49ba098ed61ffcfbc.mockapi.io/magazin')
+      .then(response => {
+        setProducts(response.data);
+      })
+      .catch(error => console.error("Error fetching data: ", error));
+  }, []);
 
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchTerm(value);
 
-    // Поиск товара по запросу
-    const foundProduct = GeneralData.find(item =>
+    const foundProduct = products.find(item =>
       item.titleProduct.toLowerCase().includes(value) ||
       item.mahsulotnomi.toLowerCase().includes(value) ||
       item.nameproduct.toLowerCase().includes(value)
