@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { CustomSelect } from '../'; // Убедитесь, что путь к импорту правильный
 import "./basic-modal.css";
+import axios from 'axios'; // Импортируем axios для отправки запросов на сервер
 
 const style = {
      position: 'absolute',
@@ -50,6 +51,27 @@ export default function BasicModal({ isOpen, onClose, totalPrice }) {
           setIsPaymentValid(cardNumberValid && expiryDateValid);
      };
 
+     const handlePayment = async () => {
+          if (isPaymentValid) {
+               const paymentData = {
+                    cardNumber,
+                    expiryDate,
+                    totalPrice,
+               };
+
+               try {
+                    const response = await axios.post('http://localhost:3002/payment', paymentData);
+                    if (response.status === 200) {
+                         alert('Оплата успешно проведена! Чек отправлен в Telegram.');
+                         onClose();
+                    }
+               } catch (error) {
+                    console.error('Ошибка при оплате:', error);
+                    alert('Ошибка при оплате. Попробуйте снова.');
+               }
+          }
+     };
+
      return (
           <Modal
                open={isOpen}
@@ -78,7 +100,7 @@ export default function BasicModal({ isOpen, onClose, totalPrice }) {
                               />
                          </div>
                          <div className="payment__send">
-                              <button className={isPaymentValid ? 'valid' : ''} disabled={!isPaymentValid}>
+                              <button className={isPaymentValid ? 'valid' : ''} disabled={!isPaymentValid} onClick={handlePayment}>
                                    Оплатить
                               </button>
                          </div>

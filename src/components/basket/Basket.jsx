@@ -3,8 +3,6 @@ import "./basket.css";
 import { BasicModal } from '../'; // Ensure the import path is correct
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const telegram = window.Telegram.WebApp;
-
 const Basket = () => {
   const [basketItems, setBasketItems] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -17,7 +15,7 @@ const Basket = () => {
     // Initialize quantities
     const initialQuantities = {};
     basket.forEach(item => {
-      initialQuantities[item.id] = item.count || 1; // Assuming each item has a unique `id` field and `count` field
+      initialQuantities[item.id] = 1; // Assuming each item has a unique `id` field
     });
     setQuantities(initialQuantities);
   }, []);
@@ -27,7 +25,6 @@ const Basket = () => {
       ...prevQuantities,
       [id]: prevQuantities[id] + 1
     }));
-    updateBasketCount(id, quantities[id] + 1);
   }
 
   const onMinus = (id) => {
@@ -35,7 +32,6 @@ const Basket = () => {
       ...prevQuantities,
       [id]: Math.max(prevQuantities[id] - 1, 1) // Ensure quantity doesn't go below 1
     }));
-    updateBasketCount(id, quantities[id] - 1);
   }
 
   const onDelete = (id) => {
@@ -48,14 +44,6 @@ const Basket = () => {
     setQuantities(updatedQuantities);
   }
 
-  const updateBasketCount = (id, count) => {
-    const updatedBasket = basketItems.map(item =>
-      item.id === id ? { ...item, count } : item
-    );
-    setBasketItems(updatedBasket);
-    localStorage.setItem('basket', JSON.stringify(updatedBasket));
-  }
-
   const totalPrice = () => {
     return basketItems.reduce((total, item) => {
       return total + item.price * (quantities[item.id] || 1);
@@ -64,14 +52,6 @@ const Basket = () => {
 
   const handlePaymentClick = () => {
     setIsModalOpen(true);
-    telegram.MainButton.setText("Оплатить");
-    telegram.MainButton.show();
-    telegram.MainButton.onClick(() => {
-      // Ваш код для обработки оплаты
-      console.log("Оплата прошла успешно");
-      // Скрыть кнопку после обработки оплаты
-      telegram.MainButton.hide();
-    });
   }
 
   const handleModalClose = () => {
