@@ -1,0 +1,112 @@
+.kabinet__container {
+     width: 100%;
+     height: 90vh;
+     display: flex;
+     flex-direction: column;
+     background-color: white;
+}
+
+.profil__card {
+     width: 100%;
+     height: 140px;
+     display: flex;
+     align-items: start;
+     justify-content: start;
+     flex-direction: column;
+     background-repeat: no-repeat;
+     background-size: cover;
+     background-color: rgb(131, 160, 255);
+
+     /* background-image: url(../../assets/bg__img.jpg); */
+     gap: 15px;
+     padding: 2% 4%;
+}
+
+.kabinet__title {
+     width: 100%;
+     text-align: center;
+}
+
+.kabinet__title>p {
+     color: #222222;
+     font-size: 22px;
+     font-weight: 500;
+}
+
+.kabinet__profil-anket {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 10px;
+}
+
+.kabinet__profil-anket>img {
+     width: 60px;
+     border-radius: 50%;
+     border: solid 1px #222222;
+}
+
+.profil__name-number {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     gap: 5px;
+}
+
+.profil__name-number>p {
+     color: #222222;
+     font-size: 18px;
+     font-weight: 400;
+}
+
+.kabinet__card {
+     width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: start;
+     flex-direction: column;
+     padding: 2% 4%;
+     gap: 8px;
+}
+
+.kabinet__box {
+     width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+}
+
+.kabinet__list {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 8px;
+     cursor: pointer;
+}
+
+.kabinet__list>a {
+     text-decoration: none;
+}
+
+#hr {
+     margin: 5px 5px;
+}
+
+.kabinet__card>a {
+     width: 280px;
+     height: 40px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     background-color: rgb(131, 160, 255);
+     border-radius: 8px;
+     color: white;
+     font-size: 20px;
+     font-weight: 500;
+}
+
+.kabinet__card>a:hover {
+     background-color: rgb(83, 123, 255);
+     transition: 0.2s ease-in-out;
+}

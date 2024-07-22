@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -5,7 +6,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./basic-modal.css";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 const style = {
      position: 'absolute',
@@ -19,21 +20,31 @@ const style = {
      p: 4,
 };
 
-const telegram = window.Telegram.WebApp;
+// const telegram = window.Telegram.WebApp;
 
-const onCheckout = () => {
-     telegram.MainButton.setParams({ text: "Оплатить" });
-     telegram.MainButton.show();
-};
+// const onCheckout = () => {
+//      telegram.MainButton.setParams({ text: "Оплатить" });
+//      telegram.MainButton.show();
+// };
+
 
 export default function BasicModal({ isOpen, onClose, totalPrice }) {
      const [cardNumber, setCardNumber] = React.useState('');
      const [expiryDate, setExpiryDate] = React.useState('');
      const [isPaymentValid, setIsPaymentValid] = React.useState(false);
 
-     useEffect(() => {
-          telegram.ready();
-     }, []);
+     // useEffect(() => {
+     //      telegram.ready();
+     // }, []);
+
+     // const onSendData = useCallback(() => {
+     //      telegram.sendData(JSON.stringify(totalPrice))
+
+     // }, [])
+
+     // useEffect(() => {
+     //      telegram.onEvent("mainButtonClicked", onSendData)
+     //      return () => telegram.offEvent("mainButtonClicked", onSendData)}[onSendData])
 
      const formatCardNumber = (value) => {
           return value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
@@ -82,7 +93,7 @@ export default function BasicModal({ isOpen, onClose, totalPrice }) {
                     toast.error('Ошибка при оплате. Попробуйте снова.');
                }
           }
-          onCheckout();
+          // onCheckout();
      };
 
      return (
@@ -114,7 +125,7 @@ export default function BasicModal({ isOpen, onClose, totalPrice }) {
                               </div>
                               <div className="payment__send">
                                    <button className={isPaymentValid ? 'valid' : ''} disabled={!isPaymentValid} onClick={handlePayment}>
-                                        Оплатить
+                                        Продолжить
                                    </button>
                               </div>
                          </div>
