@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const TelegramBot = require("node-telegram-bot-api");
 
 const app = express();
-const port = 3002;
+const port = 3005;
 const token = '7409890621:AAGtsTzdH-U-IQsdam-FVzVMX_EcXCxKe9I';
 
 // Create bot
@@ -21,7 +21,7 @@ const startBot = () => {
           { command: "/start", description: "Начать заново" },
           { command: "/news", description: "Акция на всех товар 25%" },
           { command: "/payment", description: "Способы оплаты" },
-          { command: "/product", description: "Способы оплаты" },
+          { command: "/product", description: "Посетить" },
      ]);
 
      // Handle /start command
