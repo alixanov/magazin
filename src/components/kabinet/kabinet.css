@@ -15,7 +15,7 @@
      flex-direction: column;
      background-repeat: no-repeat;
      background-size: cover;
-     background-color: rgb(131, 160, 255);
+     background-color: #ddd;
 
      /* background-image: url(../../assets/bg__img.jpg); */
      gap: 15px;
@@ -99,7 +99,7 @@
      display: flex;
      align-items: center;
      justify-content: center;
-     background-color: rgb(131, 160, 255);
+     background-color: rgb(241, 82, 114);
      border-radius: 8px;
      color: white;
      font-size: 20px;
@@ -107,6 +107,5 @@
 }
 
 .kabinet__card>a:hover {
-     background-color: rgb(83, 123, 255);
-     transition: 0.2s ease-in-out;
+     background-color: crimson;     transition: 0.2s ease-in-out;
 }

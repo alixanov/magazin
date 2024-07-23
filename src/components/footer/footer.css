@@ -30,15 +30,14 @@ footer:hover {
 }
 
 .footer__page>p {
-     color: slateblue;
-     font-size: 16px;
+     color: #222222;     font-size: 16px;
      font-weight: 500;
      margin: 5px 0 0;
 }
 
 .footer__page:hover p,
 .footer__page:hover svg {
-     color: #222222 !important;
+     color: #3231314a !important;
 }
 
 .footer__page.active-link p,
@@ -48,7 +47,7 @@ footer:hover {
 
 /* Дополнительные стили для иконок, если они есть */
 .footer__page svg {
-     color: slateblue;
+     color: #222222;
      font-size: 35px;
      transition: color 0.3s;
 }
