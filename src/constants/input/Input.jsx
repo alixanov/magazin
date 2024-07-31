@@ -41,7 +41,7 @@ const Input = () => {
       <div className='input'>
         <input
           type="text"
-          placeholder='Поиск...'
+          placeholder='Izlash...'
           value={searchTerm}
           onChange={handleSearch}
         />

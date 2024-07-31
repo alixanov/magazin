@@ -4,8 +4,3 @@ export { default as Katalog } from "../components/katalog/Katalog.jsx"
 export { default as Basket } from "../components/basket/Basket.jsx"
 export { default as BasicModal } from "../components/modal/BasicModal.jsx"
 export { default as CustomSelect } from "../components/payment-card/Payment-card.jsx"
-//
-export { default as Login } from "../components/login/Login.jsx"
-export { default as Register } from "../components/register/Register.jsx"
-export { default as ResetPassword } from "../components/reset-password/Reset-password.jsx"
-export {default as Kabinet } from "../components/kabinet/Kabinet.jsx"

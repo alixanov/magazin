@@ -2,7 +2,7 @@ import React from "react";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import "./register.css";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import PhoneIcon from "@mui/icons-material/Phone";
 

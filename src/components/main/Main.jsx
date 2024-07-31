@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Home, Katalog, Footer, Basket, } from "../";
 import { FilteredProduct } from '../../page';
-import { Login, Register, ResetPassword, Kabinet } from "../"
+import { Login, Register, ResetPassword, Kabinet } from "../../page"
 
 const Main = () => {
   return (

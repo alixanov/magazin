@@ -62,24 +62,56 @@
      color: white;
      border-radius: 8px;
      font-size: 20px;
+     background-color: #418100;
      transition: background-color 0.2s ease, transform 0.2s ease;
      cursor: pointer;
 }
 
-.payment__send>button.valid {
-     background-color: #418100;
-}
-
-.payment__send>button:not(.valid) {
-     background-color: #ccc;
-     cursor: not-allowed;
-}
-
-.payment__send>button.valid:hover {
+.payment__send>button:hover {
      background-color: #335515;
      transform: scale(1.05);
 }
 
-.payment__send>button.valid:active {
+.payment__send>button:active {
      background-color: rgb(29, 58, 0);
 }
+.cardcode {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     gap: 11px;
+}
+
+.cardcode > button {
+     width: 180px;
+     height: 50px;
+     border: none;
+     color: white;
+     border-radius: 8px;
+     font-size: 20px;
+     background-color: #418100;
+     transition: background-color 0.2s ease, transform 0.2s ease;
+     cursor: pointer;
+}
+
+.cardcode > button:hover {    
+     background-color: #335515;
+     transform: scale(1.05);
+}
+
+.cardcode>input {
+     width: 100%;
+     max-width: 350px;
+     height: 45px;
+     padding-left: 10px;
+     font-size: 18px;
+     border: 2px solid #ccc;
+     border-radius: 8px;
+     outline: none;
+     transition: border-color 0.2s ease;
+}
+.cardcode>input:focus {
+     border-color: #418100;
+}
+
