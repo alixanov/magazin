@@ -82,7 +82,7 @@ const Basket = () => {
         <p>Корзина пуста</p>
       )}
       <div className="basket__summary">
-        <p>Итого: {totalPrice()} сом</p>
+        <p>Итого: {totalPrice()} $</p>
         <button onClick={handlePaymentClick} className="basket__payment-button">Оплата</button>
       </div>
       {isModalOpen && (

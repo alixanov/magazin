@@ -74,21 +74,23 @@ const FilteredProduct = () => {
                          <div className="product__title">
                               <h3>{groupTitle}</h3>
                          </div>
-                         {groupedItems[groupTitle].map((item, index) => (
-                              <div className="product__card" key={index}>
-                                   <img src={item.img[0]} alt={item.nameproduct} />
-                                   <div className="product__info">
-                                        <p>{item.nameproduct}</p>
-                                        <span>{item.nechtaqolgani} <p>dona qoldi</p></span>
-                                        <h3>{item.price} $</h3>
+                         <div className="product__wrapper">
+                              {groupedItems[groupTitle].map((item, index) => (
+                                   <div className="product__card" key={index}>
+                                        <img src={item.img[0]} alt={item.nameproduct} />
+                                        <div className="product__info">
+                                             <p>{item.nameproduct}</p>
+                                             <span>{item.nechtaqolgani} <p>dona qoldi</p></span>
+                                             <h3>{item.price} $</h3>
+                                        </div>
+                                        <div className="product__buy">
+                                             <button onClick={() => addToBasket(item)}>
+                                                  Sotib olish
+                                             </button>
+                                        </div>
                                    </div>
-                                   <div className="product__buy">
-                                        <button onClick={() => addToBasket(item)}>
-                                             Sotib olish
-                                        </button>
-                                   </div>
-                              </div>
-                         ))}
+                              ))}
+                  </div>
                     </div>
                ))}
           </div>

