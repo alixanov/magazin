@@ -9,7 +9,10 @@ import "../footer/footer.css";
 const Footer = () => {
      return (
           <footer>
-               <NavLink exact to="/" activeClassName="active-link">
+               <NavLink
+                    to="/"
+                    className={({ isActive }) => (isActive ? "active-link" : "")}
+               >
                     <div className="footer__page">
                          <HomeIcon
                               sx={{
@@ -22,7 +25,10 @@ const Footer = () => {
                     </div>
                </NavLink>
 
-               <NavLink to="/katalog" activeClassName="active-link">
+               <NavLink
+                    to="/katalog"
+                    className={({ isActive }) => (isActive ? "active-link" : "")}
+               >
                     <div className="footer__page">
                          <ManageSearchIcon
                               sx={{
@@ -35,7 +41,10 @@ const Footer = () => {
                     </div>
                </NavLink>
 
-               <NavLink to="/savat" activeClassName="active-link">
+               <NavLink
+                    to="/savat"
+                    className={({ isActive }) => (isActive ? "active-link" : "")}
+               >
                     <div className="footer__page">
                          <LocalMallIcon
                               sx={{
@@ -48,7 +57,10 @@ const Footer = () => {
                     </div>
                </NavLink>
 
-               <NavLink to="/login" activeClassName="active-link">
+               <NavLink
+                    to="/login"
+                    className={({ isActive }) => (isActive ? "active-link" : "")}
+               >
                     <div className="footer__page">
                          <PermIdentityIcon
                               sx={{

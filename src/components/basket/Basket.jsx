@@ -67,7 +67,7 @@ const Basket = () => {
             <div className="basket__details">
               <div className="basket__info">
                 <p>{item.nameproduct}</p>
-                <span>{item.price * quantities[item.id]} сом</span>
+                <span>{item.price * quantities[item.id]} $</span>
               </div>
               <div className="basket__controls">
                 <button onClick={() => onMinus(item.id)}>-</button>
@@ -90,6 +90,8 @@ const Basket = () => {
           isOpen={isModalOpen}
           onClose={handleModalClose}
           totalPrice={totalPrice()}
+          basketItems={basketItems}
+          quantities={quantities}
         />
       )}
     </div>

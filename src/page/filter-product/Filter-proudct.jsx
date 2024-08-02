@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 import "./filter-product.css";
 
+const notyf = new Notyf({
+     position: {
+          x: 'center',
+          y: 'top',
+     },
+     duration: 2000,
+});
 
 const useQuery = () => {
      return new URLSearchParams(useLocation().search);
@@ -51,17 +58,7 @@ const FilteredProduct = () => {
           notify();
      }
 
-     const notify = () =>
-          toast.success("Товар успешно добавлен в вашу корзину!", {
-               position: "top-left",
-               autoClose: 2000,
-               hideProgressBar: false,
-               closeOnClick: true,
-               pauseOnHover: true,
-               draggable: true,
-               progress: undefined,
-               theme: "light",
-          });
+     const notify = () => notyf.success("Товар успешно добавлен в вашу корзину!");
 
      const groupedItems = filteredItems.reduce((acc, item) => {
           const group = acc[item.titleProduct] || [];
@@ -69,9 +66,6 @@ const FilteredProduct = () => {
           acc[item.titleProduct] = group;
           return acc;
      }, {});
-
-
-   
 
      return (
           <div className='product-container'>
@@ -86,22 +80,9 @@ const FilteredProduct = () => {
                                    <div className="product__info">
                                         <p>{item.nameproduct}</p>
                                         <span>{item.nechtaqolgani} <p>dona qoldi</p></span>
-                                        <h3>{item.price} som</h3>
+                                        <h3>{item.price} $</h3>
                                    </div>
                                    <div className="product__buy">
-                                        <ToastContainer
-                                             className="toastify-container"
-                                             position="top-right"
-                                             autoClose={5000}
-                                             hideProgressBar={false}
-                                             newestOnTop={false}
-                                             closeOnClick
-                                             rtl={false}
-                                             pauseOnFocusLoss
-                                             draggable
-                                             pauseOnHover
-                                             theme="light"
-                                        />
                                         <button onClick={() => addToBasket(item)}>
                                              Sotib olish
                                         </button>

