@@ -10,7 +10,7 @@ const Login = () => {
      const navigate = useNavigate();
 
      const data = (e) => {
-          if (e.login === "admin" && e.password === "1234") {
+          if (e.login === "login" && e.password === "parol") {
                localStorage.setItem("data", JSON.stringify(e));
                console.log("malumot bor");
                navigate("/kabinet");
