@@ -21,7 +21,7 @@
      align-items: center;
      justify-content: center;
      flex-wrap: wrap;
-     gap: 25px;
+     gap: 10px;
 }
 
 .product__title {
