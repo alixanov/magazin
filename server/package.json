@@ -1,21 +1,26 @@
 {
-  "name": "bot",
+  "name": "13-dars",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "alikhanov",
+  "author": "",
   "license": "ISC",
-  "description": "tg bot ",
+  "description": "",
   "devDependencies": {
     "nodemon": "^3.1.4"
   },
   "dependencies": {
+    "axios": "^1.7.3",
+    "chalk": "^5.3.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "node-telegram-bot-api": "^0.66.0"
+    "mongoose": "^8.5.2",
+    "node-telegram-bot-api": "^0.66.0",
+    "outdent": "^0.8.0"
   }
 }
