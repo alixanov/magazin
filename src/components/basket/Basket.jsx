@@ -79,11 +79,11 @@ const Basket = () => {
           </div>
         ))
       ) : (
-        <p>Корзина пуста</p>
+        <p>Savat bo'sh</p>
       )}
       <div className="basket__summary">
-        <p>Итого: {totalPrice()} $</p>
-        <button onClick={handlePaymentClick} className="basket__payment-button">Оплата</button>
+        <p>Umumiy: {totalPrice()} $</p>
+        <button onClick={handlePaymentClick} className="basket__payment-button">To'lovni amalga oshirish</button>
       </div>
       {isModalOpen && (
         <BasicModal

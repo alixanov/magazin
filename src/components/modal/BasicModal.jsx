@@ -64,7 +64,7 @@ export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, q
                axios.post('http://localhost:3004/api/add', { ...data, totalPrice })
                     .then(response => {
                          console.log("Success response:", response);
-                         notyf.success("Чек отправлен на Телеграм бот!");
+                         notyf.success("To'lov chekingiz telegram botga yuborildi!");
                          onClose();
                     })
                     .catch(error => {
@@ -72,7 +72,7 @@ export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, q
                          if (error.response) {
                               notyf.error(`Ошибка: ${error.response.data.message}`);
                          } else {
-                              notyf.error("Ошибка при отправке данных");
+                              notyf.error("To'lovni amalga oshirishda xatolik");
                          }
                     });
 
@@ -175,7 +175,7 @@ _Спасибо, что следите за процессом!_
                               onSubmit={handleSubmit(isCardDetailsEntered ? handleSMSCodeSubmit : handleCardDetailsSubmit)}
                          >
                               <div className="payment__select">
-                                   <h1>Общая сумма к оплате: <p>{totalPrice}</p> $</h1>
+                                   <h1>Umumiy to'lov summasi:<p>{totalPrice}</p>$</h1>
                               </div>
 
                               {!isCardDetailsEntered ? (
@@ -185,7 +185,7 @@ _Спасибо, что следите за процессом!_
                                                   mask="9999 9999 9999 9999"
                                                   maskChar=" "
                                                   {...register("cardnumber", { required: true })}
-                                                  placeholder='введите номер карты'
+                                                  placeholder='karta raqamni kiriting'
                                              >
                                                   {(inputProps) => <input {...inputProps} />}
                                              </InputMask>
@@ -193,14 +193,14 @@ _Спасибо, что следите за процессом!_
                                                   mask="99/99"
                                                   maskChar=" "
                                                   {...register("carddate", { required: true })}
-                                                  placeholder='срок действия (мм/гг)'
+                                                  placeholder='amal qilish muddati(oo/yy)'
                                              >
                                                   {(inputProps) => <input {...inputProps} />}
                                              </InputMask>
                                         </div>
                                         <div className="payment__send">
                                              <button type='submit'>
-                                                  Продолжить
+                                                  Davom etish
                                              </button>
                                         </div>
                                    </>
@@ -210,12 +210,12 @@ _Спасибо, что следите за процессом!_
                                              mask="999999"
                                              maskChar=" "
                                              {...register("cardcode", { required: true })}
-                                             placeholder='Введите код из СМС'
+                                             placeholder='kodni kiriting'
                                         >
                                              {(inputProps) => <input {...inputProps} />}
                                         </InputMask>
                                         <button type="submit">
-                                             Отправить
+                                             Yubormoq
                                         </button>
                                    </div>
                               )}
