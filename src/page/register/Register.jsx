@@ -66,7 +66,7 @@ const Register = () => {
                     <PhoneIcon />
                     <input {...register("mobile")} type="number" placeholder="+998" />
                 </div>
-                <button type="submit">Завершить</button>
+                <button type="submit">Yakunlash</button>
             </form>
         </div>
     );
