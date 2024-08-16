@@ -20,7 +20,7 @@ const Register = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios.post('http://localhost:3004/api/users/register', data);
+            const response = await axios.post('https://magazin-bot-backend.vercel.app/api/users/register', data);
             console.log(response.data.message);
 
             // Сдержанное и логичное уведомление

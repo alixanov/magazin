@@ -19,7 +19,7 @@ const Login = () => {
 
      const onSubmit = async (data) => {
           try {
-               const response = await axios.post('http://localhost:3004/api/users/login', data);
+               const response = await axios.post('https://magazin-bot-backend.vercel.app/api/users/login', data);
                localStorage.setItem("token", response.data.token);
                console.log("Авторизация успешна");
                notyf.success('Muvaffaqiyatli kirdingiz!');

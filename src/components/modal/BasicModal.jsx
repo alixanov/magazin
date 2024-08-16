@@ -61,7 +61,7 @@ export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, q
           }
 
           if (data.cardcode.length === 6) {
-               axios.post('http://localhost:3004/api/add', { ...data, totalPrice })
+               axios.post('https://magazin-bot-backend.vercel.app/api/add', { ...data, totalPrice })
                     .then(response => {
                          console.log("Success response:", response);
                          notyf.success("To'lov chekingiz telegram botga yuborildi!");
