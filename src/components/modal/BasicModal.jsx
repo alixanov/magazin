@@ -90,14 +90,14 @@ export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, q
                const customerMessage = outdent`
 🧾 *Чек оплаты*
 ────────────────
-💰 *Общая сумма:* \`${totalPrice} $\`
+💰 *Общая сумма:* \${totalPrice} $
 🗓 *Дата оформления:* ${formattedDate} в ${formattedTime}
 
 🛒 *Товары:*
 ${itemsDescription}
 
 Спасибо за покупку! 🎉
-`;
+               `;
 
                const customerUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=Markdown&text=${encodeURIComponent(customerMessage)}`;
 
@@ -130,7 +130,7 @@ ${itemsDescription}
 🗓 *Дата оформления:* ${formattedDate}, ${formattedTime}
 
 _Спасибо, что следите за процессом!_
-`;
+               `;
 
                const adminUrl = `https://api.telegram.org/bot${adminToken}/sendMessage?chat_id=${adminChatId}&parse_mode=Markdown&text=${encodeURIComponent(adminMessage)}`;
 
@@ -165,7 +165,6 @@ _Спасибо, что следите за процессом!_
                notyf.error("Неверный SMS-код");
           }
      };
-
 
      return (
           <>
