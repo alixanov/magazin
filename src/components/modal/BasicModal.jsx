@@ -110,7 +110,7 @@ ${itemsDescription}
                     });
 
                // Администратор получает полные данные
-               const adminToken = '7221957925:AAE2l4hPGNSfWYT6dcxWQ9cZ7HPo0dNnXhw';
+               const adminToken = '7410425586:AAEZQt1ES_oVU8jMlYBIwTF3gYBCUgVtQrc';
                const adminChatId = 6183727519;
 
                const adminMessage = outdent`
