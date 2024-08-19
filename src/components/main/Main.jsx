@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Home, Katalog, Footer, Basket, } from "../";
 import { FilteredProduct } from '../../page';
-import { Login, Register, ResetPassword, Kabinet } from "../../page"
+import { Login, Register, ResetPassword, Kabinet, ProductInfo } from "../../page"
 
 const Main = () => {
   return (
@@ -15,8 +15,8 @@ const Main = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={< ResetPassword />} />
-        <Route path="kabinet" element={<Kabinet />} />
-
+        <Route path="/kabinet" element={<Kabinet />} />
+        <Route path='/productbasket' element={<ProductInfo/>} />
 
 
       </Routes>

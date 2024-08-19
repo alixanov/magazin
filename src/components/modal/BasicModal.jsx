@@ -90,7 +90,7 @@ export default function BasicModal({ isOpen, onClose, totalPrice, basketItems, q
                const customerMessage = outdent`
 🧾 *Чек оплаты*
 ────────────────
-💰 *Общая сумма:* \${totalPrice} $
+💰 *Общая сумма:* ${totalPrice} $
 🗓 *Дата оформления:* ${formattedDate} в ${formattedTime}
 
 🛒 *Товары:*

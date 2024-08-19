@@ -1,40 +1,44 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./basket.css";
-import { BasicModal } from '../'; // Ensure the import path is correct
+import { BasicModal } from '../';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Basket = () => {
   const [basketItems, setBasketItems] = useState([]);
   const [quantities, setQuantities] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const basket = JSON.parse(localStorage.getItem('basket')) || [];
     setBasketItems(basket);
 
-    // Initialize quantities
     const initialQuantities = {};
     basket.forEach(item => {
-      initialQuantities[item.id] = 1; // Assuming each item has a unique `id` field
+      initialQuantities[item.id] = 1;
     });
     setQuantities(initialQuantities);
   }, []);
 
-  const onPlus = (id) => {
+  const onPlus = (id, event) => {
+    event.stopPropagation(); // Останавливаем всплытие события
     setQuantities(prevQuantities => ({
       ...prevQuantities,
       [id]: prevQuantities[id] + 1
     }));
   }
 
-  const onMinus = (id) => {
+  const onMinus = (id, event) => {
+    event.stopPropagation(); // Останавливаем всплытие события
     setQuantities(prevQuantities => ({
       ...prevQuantities,
-      [id]: Math.max(prevQuantities[id] - 1, 1) // Ensure quantity doesn't go below 1
+      [id]: Math.max(prevQuantities[id] - 1, 1)
     }));
   }
 
-  const onDelete = (id) => {
+  const onDelete = (id, event) => {
+    event.stopPropagation(); // Останавливаем всплытие события
     const updatedBasket = basketItems.filter(item => item.id !== id);
     setBasketItems(updatedBasket);
     localStorage.setItem('basket', JSON.stringify(updatedBasket));
@@ -50,6 +54,10 @@ const Basket = () => {
     }, 0);
   }
 
+  const handleProductClick = (product) => {
+    navigate('/productbasket', { state: { product } });
+  }
+
   const handlePaymentClick = () => {
     setIsModalOpen(true);
   }
@@ -62,7 +70,7 @@ const Basket = () => {
     <div className='basket'>
       {basketItems.length > 0 ? (
         basketItems.map((item, index) => (
-          <div className="basket__item" key={index}>
+          <div className="basket__item" key={index} onClick={() => handleProductClick(item)}>
             <img src={item.img[0]} alt={item.nameproduct} className="basket__image" />
             <div className="basket__details">
               <div className="basket__info">
@@ -70,10 +78,10 @@ const Basket = () => {
                 <span>{item.price * quantities[item.id]} $</span>
               </div>
               <div className="basket__controls">
-                <button onClick={() => onMinus(item.id)}>-</button>
+                <button onClick={(event) => onMinus(item.id, event)}>-</button>
                 <p>{quantities[item.id]}</p>
-                <button onClick={() => onPlus(item.id)}>+</button>
-                <DeleteIcon onClick={() => onDelete(item.id)} className="delete-icon" />
+                <button onClick={(event) => onPlus(item.id, event)}>+</button>
+                <DeleteIcon onClick={(event) => onDelete(item.id, event)} className="delete-icon" />
               </div>
             </div>
           </div>
