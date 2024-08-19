@@ -52,3 +52,9 @@ p {
 .basket__payment-button:active {
      background-color: #1f300f;
 }
+.hr {
+     width: 100%;
+     height: 1px;
+     background-color: #222222;
+margin-top: 11px;
+}

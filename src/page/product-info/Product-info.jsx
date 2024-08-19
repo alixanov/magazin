@@ -19,6 +19,7 @@ const Productinfo = () => {
      return (
           <div className="product-info">
                <img src={product.img[0]} alt={product.nameproduct} className="product-info__image" />
+               <hr className='hr' />
                <div className="product__info-txt">
                     <h2>{product.nameproduct}</h2>
                     <p>Цена: <span>{product.price}</span> $</p>
