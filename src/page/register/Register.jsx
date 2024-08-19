@@ -52,7 +52,7 @@ const Register = () => {
                              placeholder="Parol"
                     />
                 </div>
-                <label>Parolni qaytadan tering</label>
+                {/* <label>Parolni qaytadan tering</label>
                 <div className="register__input">
                     <LockOpenOutlinedIcon />
                     <input
@@ -60,12 +60,12 @@ const Register = () => {
                         type="password"
                              placeholder="Parolni qaytadan tering"
                     />
-                </div>
-                <label>Telefon raqam</label>
+                </div> */}
+                {/* <label>Telefon raqam</label>
                 <div className="register__input">
                     <PhoneIcon />
                     <input {...register("mobile")} type="number" placeholder="+998" />
-                </div>
+                </div> */}
                 <button type="submit">Yakunlash</button>
             </form>
         </div>
