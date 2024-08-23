@@ -15,16 +15,16 @@ const notyf = new Notyf({
 
 const useQuery = () => {
      return new URLSearchParams(useLocation().search);
-}
+};
 
 const getBasket = () => {
      const basket = JSON.parse(localStorage.getItem('basket')) || [];
      return basket;
-}
+};
 
 const setBasket = (basket) => {
      localStorage.setItem('basket', JSON.stringify(basket));
-}
+};
 
 const FilteredProduct = () => {
      const [products, setProducts] = useState([]);
@@ -32,7 +32,7 @@ const FilteredProduct = () => {
      const productName = query.get('name');
 
      useEffect(() => {
-          axios.get('https://669a7ba49ba098ed61ffcfbc.mockapi.io/magazin')
+          axios.get('https://magazin-bot-backend.vercel.app/api/getall')
                .then(response => {
                     setProducts(response.data);
                })
@@ -40,12 +40,12 @@ const FilteredProduct = () => {
      }, []);
 
      const filteredItems = productName
-          ? products.filter(item => item.mahsulotnomi === productName)
+          ? products.filter(item => item.titleProduct === productName)
           : products;
 
      const addToBasket = (item) => {
           const basket = getBasket();
-          const existingItem = basket.find(basketItem => basketItem.id === item.id);
+          const existingItem = basket.find(basketItem => basketItem._id === item._id);
 
           if (existingItem) {
                existingItem.count += 1;
@@ -56,7 +56,7 @@ const FilteredProduct = () => {
 
           setBasket(basket);
           notify();
-     }
+     };
 
      const notify = () => notyf.success("Товар успешно добавлен в вашу корзину!");
 
@@ -77,7 +77,7 @@ const FilteredProduct = () => {
                          <div className="product__wrapper">
                               {groupedItems[groupTitle].map((item, index) => (
                                    <div className="product__card" key={index}>
-                                        <img src={item.img[0]} alt={item.nameproduct} />
+                                        <img src={item.img} alt={item.nameproduct} />
                                         <div className="product__info">
                                              <p>{item.nameproduct}</p>
                                              <span>{item.nechtaqolgani} <p>dona qoldi</p></span>
@@ -90,11 +90,11 @@ const FilteredProduct = () => {
                                         </div>
                                    </div>
                               ))}
-                  </div>
+                         </div>
                     </div>
                ))}
           </div>
-     )
-}
+     );
+};
 
 export default FilteredProduct;

@@ -71,7 +71,7 @@ const Basket = () => {
       {basketItems.length > 0 ? (
         basketItems.map((item, index) => (
           <div className="basket__item" key={index} onClick={() => handleProductClick(item)}>
-            <img src={item.img[0]} alt={item.nameproduct} className="basket__image" />
+            <img src={item.img} alt={item.nameproduct} className="basket__image" />
             <div className="basket__details">
               <div className="basket__info">
                 <p>{item.nameproduct}</p>

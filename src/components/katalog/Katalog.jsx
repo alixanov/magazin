@@ -8,11 +8,11 @@ const Katalog = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get('https://669a7ba49ba098ed61ffcfbc.mockapi.io/magazin')
+    axios.get('https://magazin-bot-backend.vercel.app/api/getall')
       .then(response => {
-        const uniqueItems = Array.from(new Set(response.data.map(item => item.mahsulotnomi)))
+        const uniqueItems = Array.from(new Set(response.data.map(item => item.titleProduct)))
           .map(nomi => {
-            return response.data.find(item => item.mahsulotnomi === nomi);
+            return response.data.find(item => item.titleProduct === nomi);
           });
         setProducts(uniqueItems);
       })
@@ -26,8 +26,8 @@ const Katalog = () => {
         {products.map((item, index) => (
           <div className="katalog__list" key={index}>
             <img src={item.swiperuchun} alt="" width={30} />
-            <Link to={`/product?name=${item.mahsulotnomi}`}>
-              {item.mahsulotnomi}
+            <Link to={`/product?name=${item.titleProduct}`}>
+              {item.titleProduct}
             </Link>
           </div>
         ))}

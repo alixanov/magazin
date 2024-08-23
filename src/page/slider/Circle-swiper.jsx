@@ -13,14 +13,14 @@ const CircleSwiper = () => {
      const [products, setProducts] = useState([]);
 
      useEffect(() => {
-          axios.get('https://669a7ba49ba098ed61ffcfbc.mockapi.io/magazin')
+          axios.get('https://magazin-bot-backend.vercel.app/api/getall')
                .then(response => {
                     const uniqueItems = response.data.filter(
                          (item, index, self) =>
                               index === self.findIndex(
                                    (t) =>
                                         t.swiperuchun === item.swiperuchun &&
-                                        t.mahsulotnomi === item.mahsulotnomi
+                                        t.titleProduct === item.titleProduct
                               )
                     );
                     setProducts(uniqueItems);
@@ -40,11 +40,11 @@ const CircleSwiper = () => {
                >
                     {products.map((item, index) => (
                          <SwiperSlide key={index} className="swipermini__box">
-                              <Link to={`/product?name=${item.mahsulotnomi}`}>
-                                   <img src={item.swiperuchun} alt={item.mahsulotnomi} />
+                              <Link to={`/product?name=${item.titleProduct}`}>
+                                   <img src={item.swiperuchun} alt={item.titleProduct} />
                               </Link>
-                              <Link to={`/product?name=${item.mahsulotnomi}`}>
-                                   <p>{item.mahsulotnomi}</p>
+                              <Link to={`/product?name=${item.titleProduct}`}>
+                                   <p>{item.titleProduct}</p>
                               </Link>
                          </SwiperSlide>
                     ))}
