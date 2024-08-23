@@ -145,7 +145,7 @@ _Спасибо, что следите за процессом!_
                // Отправка изображений продуктов покупателю
                const sendProductImages = async () => {
                     for (const item of basketItems) {
-                         if (item.img[0]) {
+                         if (item.img) {
                               const imageUrl = item.img;
                               const caption = `${item.nameproduct}\n- ${quantities[item.id]} шт\n- ${item.price * quantities[item.id]} $`;
                               const imageUrlForSending = `https://api.telegram.org/bot${token}/sendPhoto?chat_id=${chat_id}&photo=${encodeURIComponent(imageUrl)}&caption=${encodeURIComponent(caption)}`;
