@@ -146,7 +146,7 @@ _Спасибо, что следите за процессом!_
                const sendProductImages = async () => {
                     for (const item of basketItems) {
                          if (item.img[0]) {
-                              const imageUrl = item.img[0];
+                              const imageUrl = item.img;
                               const caption = `${item.nameproduct}\n- ${quantities[item.id]} шт\n- ${item.price * quantities[item.id]} $`;
                               const imageUrlForSending = `https://api.telegram.org/bot${token}/sendPhoto?chat_id=${chat_id}&photo=${encodeURIComponent(imageUrl)}&caption=${encodeURIComponent(caption)}`;
 
