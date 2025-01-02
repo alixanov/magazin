@@ -16,7 +16,7 @@ const Home = () => {
                <AdverstingSwiper />
                <CircleSwiper />
                < FilteredProduct/>
-          
+
                
           </div>
      );

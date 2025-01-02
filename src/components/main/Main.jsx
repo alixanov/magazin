@@ -16,8 +16,9 @@ const Main = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={< ResetPassword />} />
         <Route path="/kabinet" element={<Kabinet />} />
-        <Route path='/productbasket' element={<ProductInfo/>} />
-
+        <Route path='/productbasket' element={<ProductInfo />} />
+        
+        {/* <Route path='/infoproduct' element={<InfoProduct/>}/>  */}
 
       </Routes>
       <Footer />
