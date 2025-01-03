@@ -3,6 +3,7 @@
      width: 380px;
      font-size: 15px;
 }
+
 .product-container {
      max-width: 390px;
      margin: 0 auto;
@@ -95,7 +96,7 @@
 .product__buy button {
      width: 100%;
      padding: 10px;
-     background: linear-gradient(135deg, green, rgb(47, 83, 47));
+     background: linear-gradient(135deg, #28a745, #218838);
      color: white;
      border: none;
      border-radius: 8px;

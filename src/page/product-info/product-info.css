@@ -1,60 +1,86 @@
 .product-info {
-     width: 100%;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     flex-direction: column;
-     /* padding: 3%; */
+     padding: 10px;
+     margin: 0 auto;
+     max-width: 390px;
 }
 
-.product-info>img {
-     max-width: 250px;
-     max-height: 270px;
+.product-info__image-container {
+     width: 100%;
+ 
+     margin: 0 auto;
+     position: relative;
+}
+
+.product-swiper {
+     width: 100%;
+     height: 100%;
+}
+
+.product-info__image {
+     width: 100%;
+     height: 300px;
+     object-fit: cover;
+     display: block;
+}
+
+/* Кастомизация стрелок навигации */
+.swiper-button-next,
+.swiper-button-prev {
+     color: #ffffff !important;
+     background: rgba(0, 0, 0, 0.5);
+     width: 40px !important;
+     height: 40px !important;
+     border-radius: 50%;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+     font-size: 20px !important;
+}
+
+/* Кастомизация точек пагинации */
+.swiper-pagination-bullet {
+     width: 10px !important;
+     height: 10px !important;
+     background: #ffffff !important;
+     opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+     opacity: 1;
+     background: #ffffff !important;
 }
 
 .product__info-txt {
-     width: 100%;
-     display: flex;
-     align-items: end;
-     justify-content: end;
-     text-align: end;
-     flex-direction: column;
-     gap: 12px;
-     padding-top: 22px;
+     margin-top: 20px;
+     padding: 20px;
 }
 
-.product__info-txt h2,
-p {
-     color: #222222;
+.product__info-txt h2 {
+     margin-bottom: 15px;
 }
 
-.product__info-txt>p>span {
-     color: #874f02;
-     font-weight: 700;
+.product__info-txt p {
+     margin-bottom: 10px;
 }
+
 .basket__payment-button {
-     height: 40px;
-     background-color: #335515;
+     margin-top: 20px;
+     padding: 10px 20px;
+     background-color: #007bff;
      color: white;
-     padding: 8px 1px;
-     border-radius: 8px;
-     cursor: pointer;
      border: none;
-     font-size: 14px;
-     transition: background-color 0.2s ease, transform 0.2s ease;
+     border-radius: 5px;
+     cursor: pointer;
+     transition: background-color 0.3s;
 }
 
 .basket__payment-button:hover {
-     background-color: #284111;
-     transform: scale(1.05);
+     background-color: #0056b3;
 }
 
-.basket__payment-button:active {
-     background-color: #1f300f;
-}
 .hr {
-     width: 100%;
-     height: 1px;
-     background-color: #222222;
-margin-top: 11px;
+     margin: 20px 0;
+     border: none;
+     border-top: 1px solid #e0e0e0;
 }
