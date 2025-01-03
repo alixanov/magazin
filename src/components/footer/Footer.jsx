@@ -7,71 +7,30 @@ import { NavLink } from "react-router-dom";
 import "../footer/footer.css";
 
 const Footer = () => {
+     const renderLink = (to, IconComponent, label) => (
+          <NavLink
+               to={to}
+               className={({ isActive }) => (isActive ? "active-link" : "")}
+          >
+               <div className="footer__page">
+                    <IconComponent
+                         sx={{
+                              "&:hover": { color: "royalblue" },
+                              color: "slateblue",
+                              fontSize: "40px",
+                         }}
+                    />
+                    <p>{label}</p>
+               </div>
+          </NavLink>
+     );
+
      return (
           <footer>
-               <NavLink
-                    to="/"
-                    className={({ isActive }) => (isActive ? "active-link" : "")}
-               >
-                    <div className="footer__page">
-                         <HomeIcon
-                              sx={{
-                                   "&:hover": { color: "royalblue" },
-                                   color: "slateblue",
-                                   fontSize: "40px",
-                              }}
-                         />
-                         <p>Asosiy</p>
-                    </div>
-               </NavLink>
-
-               <NavLink
-                    to="/katalog"
-                    className={({ isActive }) => (isActive ? "active-link" : "")}
-               >
-                    <div className="footer__page">
-                         <ManageSearchIcon
-                              sx={{
-                                   "&:hover": { color: "royalblue" },
-                                   color: "slateblue",
-                                   fontSize: "40px",
-                              }}
-                         />
-                         <p>Katalog</p>
-                    </div>
-               </NavLink>
-
-               <NavLink
-                    to="/savat"
-                    className={({ isActive }) => (isActive ? "active-link" : "")}
-               >
-                    <div className="footer__page">
-                         <LocalMallIcon
-                              sx={{
-                                   "&:hover": { color: "royalblue" },
-                                   color: "slateblue",
-                                   fontSize: "40px",
-                              }}
-                         />
-                         <p>Savat</p>
-                    </div>
-               </NavLink>
-
-               <NavLink
-                    to="/login"
-                    className={({ isActive }) => (isActive ? "active-link" : "")}
-               >
-                    <div className="footer__page">
-                         <PermIdentityIcon
-                              sx={{
-                                   "&:hover": { color: "#222222" },
-                                   color: "slateblue",
-                                   fontSize: "40px",
-                              }}
-                         />
-                         <p>Kabinet</p>
-                    </div>
-               </NavLink>
+               {renderLink("/", HomeIcon, "Asosiy")}
+               {renderLink("/katalog", ManageSearchIcon, "Katalog")}
+               {renderLink("/savat", LocalMallIcon, "Savat")}
+               {renderLink("/login", PermIdentityIcon, "Kabinet")}
           </footer>
      );
 };

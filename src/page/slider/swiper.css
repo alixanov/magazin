@@ -1,5 +1,5 @@
 .myswiper {
-     width: 352px;
+     width: 350px;
      height: 150px;
      display: flex;
      align-items: center;
@@ -8,14 +8,14 @@
 }
 
 .myswiper-slider {
-     width: 352px;
+width: 350px;
      display: flex;
      align-items: center;
      justify-content: center;
 }
 
 .myswiper-slider div {
-     width: 352px;
+width: 350px;
      height: 150px;
      display: none;
      align-items: center;
@@ -23,7 +23,7 @@
 }
 
 .myswiper-slider div>img {
-     width: 352px;
+width: 350px;
      height: 150px;
      border-radius: 8px;
 }
@@ -43,7 +43,7 @@
 /* Swiper mini home */
 
 .mySwiper {
-     width: 100%;
+     width: 390px;
      display: flex;
      align-items: center;
      justify-content: center;

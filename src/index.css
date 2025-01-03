@@ -8,32 +8,41 @@
 }
 
 body {
-     height: 100vh;
+     height: 100%;
+     /* Используем 100% высоты для корректной работы */
      margin: 0;
      display: flex;
      justify-content: center;
      font-family: 'Roboto Flex', sans-serif;
-     background-color: white;     overflow-x: hidden;
-     /* overflow-x: hidden; */
+     background-color: white;
+     overflow-x: hidden;
 }
 
 #root {
      max-width: 390px;
+     /* Ограничиваем максимальную ширину */
      width: 100%;
      background-color: white;
      margin: 0 auto;
-
 }
-   
 
 .main {
      width: 100%;
      min-height: 100vh;
+     /* Используем min-height для гибкости */
      display: flex;
      align-items: center;
      flex-direction: column;
-     padding: 1% 0%;
+     padding: 1% 0;
      padding-bottom: 13vh;
-     /* padding: 0 0 5% 0; */
-     /* Добавим отступ снизу */
+     /* Небольшие отступы снизу */
+}
+
+@media (max-width: 390px) {
+
+     /* Дополнительные стили для мобильных устройств */
+     .main {
+          padding-bottom: 10vh;
+          /* Уменьшаем нижний отступ для мобильных */
+     }
 }

@@ -1,10 +1,10 @@
 /* Добавьте этот CSS в ваш файл basket.css или создайте новый файл css */
 .toastify-container .Toastify__toast {
-     width: 390px;
+     width: 380px;
      font-size: 15px;
 }
 .product-container {
-     width: 380px;
+     max-width: 390px;
      margin: 0 auto;
      padding: 10px;
 }
@@ -22,7 +22,7 @@
 .product__wrapper {
      display: grid;
      grid-template-columns: repeat(2, 1fr);
-     gap: 10px;
+     gap: 30px;
 }
 
 .product__card {

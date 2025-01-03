@@ -1,117 +1,105 @@
-.payment__container {
+/* Общие стили для страницы */
+.payment-page {
+     width: 390px;
      display: flex;
      flex-direction: column;
      align-items: center;
+     padding: 20px;
+     font-family: 'Arial', sans-serif;
+     transition: background-color 0.3s ease;
+     height: 500px;
+}
+
+.payment-header {
+     text-align: center;
+     margin-top: 20px;
+}
+
+.payment-header h1 {
+     font-size: 2rem;
+     color: #333;
+}
+
+.payment-header h2 {
+     font-size: 1.25rem;
+     color: #666;
+     margin-top: 10px;
+}
+
+.payment-form {
+     padding: 25px;
+     border-radius: 10px;
+     display: flex;
+     flex-direction: column;
      gap: 20px;
-     font-family: 'Roboto', sans-serif;
 }
 
-.payment__select {
+/* Стили для группы ввода */
+.input-group {
      display: flex;
      flex-direction: column;
-     align-items: center;
-     gap: 12px;
-     width: 100%;
+     gap: 8px;
 }
 
-.payment__select>h1 {
-     font-weight: 600;
-     font-size: 24px;
-     color: #222222;
-}
-
-.payment__select>h1>p {
-     font-weight: 600;
-     font-size: 24px;
-     color: #335515;
-}
-
-.payment__inp-number {
-     display: flex;
-     flex-direction: column;
-     gap: 12px;
-     width: 100%;
-}
-
-.payment__inp-number>input {
-     width: 100%;
-     max-width: 350px;
+.input-group input {
+     width: 300px;
      height: 45px;
-     padding-left: 10px;
-     font-size: 18px;
-     border: 2px solid #ccc;
+     font-size: 1rem;
+     border: 1px solid #ddd;
      border-radius: 8px;
+     background-color: #f9f9f9;
+     color: #333;
+     transition: border-color 0.3s ease;
+     text-indent: 10px;
+}
+
+.input-group input:focus {
+     border-color: #28a745;
+     /* Зеленый цвет при фокусе */
      outline: none;
-     transition: border-color 0.2s ease;
 }
 
-.payment__inp-number>input:focus {
-     border-color: #418100;
+.input-group input::placeholder {
+     color: #aaa;
 }
 
-.payment__send {
-     display: flex;
-     justify-content: center;
-     width: 100%;
-}
-
-.payment__send>button {
-     width: 200px;
-     height: 50px;
-     border: none;
-     color: white;
-     border-radius: 8px;
-     font-size: 20px;
-     background-color: #418100;
-     transition: background-color 0.2s ease, transform 0.2s ease;
-     cursor: pointer;
-}
-
-.payment__send>button:hover {
-     background-color: #335515;
-     transform: scale(1.05);
-}
-
-.payment__send>button:active {
-     background-color: rgb(29, 58, 0);
-}
-.cardcode {
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     flex-direction: column;
-     gap: 11px;
-}
-
-.cardcode > button {
-     width: 180px;
-     height: 50px;
-     border: none;
-     color: white;
-     border-radius: 8px;
-     font-size: 20px;
-     background-color: #418100;
-     transition: background-color 0.2s ease, transform 0.2s ease;
-     cursor: pointer;
-}
-
-.cardcode > button:hover {    
-     background-color: #335515;
-     transform: scale(1.05);
-}
-
-.cardcode>input {
-     width: 100%;
-     max-width: 350px;
+/* Стили для кнопки отправки */
+.submit-button {
+     width: 300px;
      height: 45px;
-     padding-left: 10px;
-     font-size: 18px;
-     border: 2px solid #ccc;
+     font-size: 1rem;
+     color: #fff;
+     background-color: #28a745;
+     /* Основной зеленый цвет */
+     border: none;
      border-radius: 8px;
-     outline: none;
-     transition: border-color 0.2s ease;
-}
-.cardcode>input:focus {
-     border-color: #418100;
+     cursor: pointer;
+     transition: background-color 0.3s ease;
 }
 
+.submit-button:hover {
+     background-color: #218838;
+     /* Темнее зеленый при наведении */
+}
+
+.submit-button:active {
+     background-color: #1e7e34;
+     /* Еще темнее зеленый при клике */
+}
+
+/* Анимация для страниц */
+.payment-page {
+     animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+     0% {
+          opacity: 0;
+          transform: translateY(20px);
+     }
+
+     100% {
+          opacity: 1;
+          transform: translateY(0);
+     }
+}

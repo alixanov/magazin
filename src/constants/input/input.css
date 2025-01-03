@@ -1,42 +1,67 @@
+/* Контейнер для поиска */
 .search-container {
-     width: 100%;
+     width: 390px;
      padding: 10px;
+     /* background-color: #fff; */
+     /* Белый фон для контейнера */
+     /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); */
+     /* Легкая тень */
+     border-radius: 8px;
+     /* Слегка скругленные углы */
 }
 
+/* Ввод */
 .input {
      display: flex;
      align-items: center;
      gap: 10px;
      margin-bottom: 20px;
+     border-radius: 4px;
 }
 
+/* Поле ввода */
 .input input {
      width: 100%;
      padding: 8px;
-     border: 1px solid #22222241;
+     border: 1px solid #ddd;
      border-radius: 4px;
      font-size: 16px;
      outline: none;
-     background-color: #ddd;
+     background-color: #f9f9f9;
+     /* Легкий серый фон */
+     transition: border-color 0.3s ease;
 }
 
+/* При ховере на поле ввода */
+.input input:focus {
+     border-color: #222222;
+     /* Зеленая граница при фокусе */
+}
+
+/* Список продуктов */
 .product-list {
      margin-top: 10px;
 }
 
+/* Продукт */
 .product-item {
      background-color: #f9f9f9;
      padding: 10px;
      border: 1px solid #ddd;
      border-radius: 4px;
      cursor: pointer;
+     transition: background-color 0.3s ease;
 }
 
+/* При ховере на продукт */
 .product-item:hover {
      background-color: #e0e0e0;
 }
 
+/* Название продукта */
 .product-item h2 {
      font-size: 16px;
      margin: 0;
+     color: #333;
+     /* Более темный цвет для текста */
 }

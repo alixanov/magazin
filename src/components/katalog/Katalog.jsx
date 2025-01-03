@@ -10,11 +10,11 @@ const Katalog = () => {
   useEffect(() => {
     axios.get('https://magazin-bot-backend.vercel.app/api/getall')
       .then(response => {
-        const uniqueItems = Array.from(new Set(response.data.map(item => item.titleProduct)))
-          .map(nomi => {
-            return response.data.find(item => item.titleProduct === nomi);
+        const uniqueProducts = Array.from(new Set(response.data.map(item => item.titleProduct)))
+          .map(titleProduct => {
+            return response.data.find(item => item.titleProduct === titleProduct);
           });
-        setProducts(uniqueItems);
+        setProducts(uniqueProducts);
       })
       .catch(error => console.error("Error fetching data: ", error));
   }, []);
@@ -25,7 +25,7 @@ const Katalog = () => {
       <div className="katalog__container">
         {products.map((item, index) => (
           <div className="katalog__list" key={index}>
-            <img src={item.swiperuchun} alt="" width={30} />
+            <img src={item.swiperuchun} alt={item.titleProduct} width={30} />
             <Link to={`/product?name=${item.titleProduct}`}>
               {item.titleProduct}
             </Link>
